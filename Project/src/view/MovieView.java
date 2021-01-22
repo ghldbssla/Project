@@ -2,12 +2,14 @@ package view;
 
 import java.util.Scanner;
 
+import dao.MovieDAO;
 import dao.UserDAO;
 import dto.UserDTO;
 
 public class MovieView {
 	public MovieView() {
 		UserDAO udao = new UserDAO();
+		MovieDAO mdao = new MovieDAO();
 		System.out.println("MovieView입니다.");
 		Scanner sc = new Scanner(System.in);
 		while (true) {
@@ -22,7 +24,7 @@ public class MovieView {
 			case 1:
 				// 현재 상영작 정보
 				System.out.println("현재 상영작 정보");
-				new NowMovieView();
+				System.out.println(mdao.NowList());
 				break;
 			case 2:
 				// 개봉 예정작 정보

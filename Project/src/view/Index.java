@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 public class Index {
 	public static void main(String[] args) {
+		new CrawLing();
 		Scanner sc = new Scanner(System.in);
 		while (true) {
 			System.out.println("1. 회원가입\n2. 로그인\n3. 영화 \n4. 나가기");

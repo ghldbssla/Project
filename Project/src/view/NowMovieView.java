@@ -31,7 +31,7 @@ public class NowMovieView {
 				break;
 			case 2:
 				// 장르별 영화 목록
-				result = mdao.NowList_genre();
+				result = mdao.NowList();
 				if (result == "") {
 					System.out.println("===현재 상영중인 영화가 없습니다.===");
 				} else {
@@ -41,7 +41,7 @@ public class NowMovieView {
 				break;
 			case 3:
 				// 평점순 영화목록
-				result = mdao.NowList_rate();
+				result = mdao.NowList();
 				if (result == "") {
 					System.out.println("===현재 상영중인 영화가 없습니다.===");
 				} else {
