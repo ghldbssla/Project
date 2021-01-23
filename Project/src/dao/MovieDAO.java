@@ -25,8 +25,8 @@ public class MovieDAO {
 			pstm = conn.prepareStatement(sql);
 			rs = pstm.executeQuery();
 			while (rs.next()) {
-				result += "영화 제목 : " +rs.getString(1) + "- 평점 : " + rs.getString(2) + "-장르 : " + rs.getString(3)
-						+ "-감독 : " + rs.getString(4)+ "-배우 : " + rs.getString(5) + "\n";
+				result += "영화 제목 : \"" +rs.getString(1) + "\"\n\t- 평점 : " + rs.getString(2) + "\n\t-장르 : " + rs.getString(3)
+						+ "\n\t-감독 : \"" + rs.getString(4)+ "\"\n\t-배우 : \"" + rs.getString(5) + "\"\n\n";
 			}
 		} catch (SQLException e) {
 			System.out.println(e);
@@ -40,6 +40,29 @@ public class MovieDAO {
 		}
 		return result;
 	}
+	
+	// 개봉 예정 영화 목록(제목,장르,감독,배우)
+		public String SoonList() {
+			String sql = "SELECT * FROM TBL_MOVIE_INFO_SOON ORDER BY title";
+			String result = "";
+			try {
+				pstm = conn.prepareStatement(sql);
+				rs = pstm.executeQuery();
+				while (rs.next()) {
+					result += "영화 제목 : \"" +rs.getString(1) + "\"\n\t-장르 : " + rs.getString(2)
+					+ "\n\t-감독 : \"" + rs.getString(3)+ "\"\n\t-배우 : \"" + rs.getString(4) + "\"\n\n";				}
+			} catch (SQLException e) {
+				System.out.println(e);
+			} finally {
+				try {
+					rs.close();
+					pstm.close();
+				} catch (SQLException e) {
+					System.out.println("알 수 없는 오류");
+				}
+			}
+			return result;
+		}
 
 
 	public String myticket(String session_id) {
@@ -72,13 +95,32 @@ public class MovieDAO {
 
 	// -------------------------------크롤링
 	// -------------------------------크롤링
+	//현재 상영작 테이블 데이터 삭제
 	public void delete() {
 
 		String sql = "DELETE FROM TBL_MOVIE_INFO";
 		try {
 			pstm = conn.prepareStatement(sql);
 			pstm.executeUpdate();
-			System.out.println("있던 데이터 삭제");
+			System.out.println("현재 상영작 테이블 데이터 삭제");
+		} catch (SQLException e) {
+			System.out.println(e);
+		} finally {
+			try {
+				pstm.close();
+			} catch (SQLException e) {
+				System.out.println("알 수 없는 오류");
+			}
+		}
+	}
+	//상영 예정작 테이블 데이터 삭제
+	public void delete_soon() {
+
+		String sql = "DELETE FROM TBL_MOVIE_INFO_SOON";
+		try {
+			pstm = conn.prepareStatement(sql);
+			pstm.executeUpdate();
+			System.out.println("상영 예정작 테이블 데이터 삭제");
 		} catch (SQLException e) {
 			System.out.println(e);
 		} finally {
@@ -111,6 +153,28 @@ public class MovieDAO {
 				System.out.println("알 수 없는 오류");
 			}
 		}
+	}
+//sql로 상영 예정작 데이터 추가
+	public void input_s(String title_s, String genre_s, String director_s, String actor_s) {
+		String sql = "INSERT INTO TBL_MOVIE_INFO_SOON VALUES(?,?,?,?)";
+		try {
+			pstm = conn.prepareStatement(sql);
+			pstm.setString(1, title_s);
+			pstm.setString(2, genre_s);
+			pstm.setString(3, director_s);
+			pstm.setString(4, actor_s);
+			pstm.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("제목 오류_s");
+			System.out.println(e);
+		} finally {
+			try {
+				pstm.close();
+			} catch (SQLException e) {
+				System.out.println("알 수 없는 오류");
+			}
+		}
+		
 	}
 		
 

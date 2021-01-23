@@ -29,7 +29,7 @@ public class MovieView {
 			case 2:
 				// 개봉 예정작 정보
 				System.out.println("개봉 상영작 정보");
-				new SoonMovieView();
+				System.out.println(mdao.SoonList());
 				break;
 			case 3:
 				//예매하기(로그인 -> 예매화면)
