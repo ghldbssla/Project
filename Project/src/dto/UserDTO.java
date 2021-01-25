@@ -4,58 +4,138 @@ public class UserDTO {
 	private String userid;
 	private String userpw;
 	private String username;
-	private String email;
+	private String useremail;
 	private String userphone;
 	private String useraddr;
-	private String bday;
-	private int coupon;
-	private int money;
-
-	public UserDTO() {
+	private String userbday;
+	private int usercoupon;
+	private int usermoney;
+	
+	//alt shift s > r : getter, setter �����
+	public String getUserid() {
+		return userid;
 	}
 
-	public UserDTO(String userid, String userpw) {
+	public void setUserid(String userid) {
 		this.userid = userid;
+	}
+
+	public String getUserpw() {
+		return userpw;
+	}
+
+	public void setUserpw(String userpw) {
 		this.userpw = userpw;
 	}
 
-	
-	
-	public UserDTO(String userid, String userpw, String username, String email, String userphone, String useraddr,
-			String bday) {
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getUseremail() {
+		return useremail;
+	}
+
+	public void setUseremail(String useremail) {
+		this.useremail = useremail;
+	}
+
+	public String getUserphone() {
+		return userphone;
+	}
+
+	public void setUserphone(String userphone) {
+		this.userphone = userphone;
+	}
+
+	public String getUseraddr() {
+		return useraddr;
+	}
+
+	public void setUseraddr(String useraddr) {
+		this.useraddr = useraddr;
+	}
+
+	public String getUserbday() {
+		return userbday;
+	}
+
+	public void setUserbday(String userbday) {
+		this.userbday = userbday;
+	}
+	public int getUsercoupon() {
+		return usercoupon;
+	}
+
+	public void setUsercoupon(int usercoupon) {
+		this.usercoupon = usercoupon;
+	}
+
+	public int getUsermoney() {
+		return usermoney;
+	}
+
+	public void setUsermoney(int usermoney) {
+		this.usermoney = usermoney;
+	}
+
+	public UserDTO() {;}
+
+	public UserDTO(String[] datas) {
+		this.userid = datas[0];
+		this.userpw = datas[1];
+		this.username = datas[2];
+		this.useremail = datas[3];
+		this.userphone = datas[4];
+		this.useraddr = datas[5];
+		this.userbday = datas[6];
+		this.usercoupon=Integer.parseInt(datas[7]);
+		this.usermoney=Integer.parseInt(datas[8]);
+	}
+	public UserDTO(String userid, String userpw, String username, String useremail, String userphone, String useraddr,
+			String userbday, int usercoupon, int usermoney) {
 		this.userid = userid;
 		this.userpw = userpw;
 		this.username = username;
-		this.email = email;
+		this.useremail = useremail;
 		this.userphone = userphone;
 		this.useraddr = useraddr;
-		this.bday = bday;
-		this.coupon=0;
-		this.money=0;
+		this.userbday = userbday;
+		this.usercoupon = usercoupon;
+		this.usermoney = usermoney;
 	}
 
-	
-
+	public UserDTO(String userid, String userpw, String username, String useremail, String userphone, String useraddr, String userbday) {
+		this.userid = userid;
+		this.userpw = userpw;
+		this.username = username;
+		this.useremail = useremail;
+		this.userphone = userphone;
+		this.useraddr = useraddr;
+		this.userbday = userbday;
+		this.usercoupon=0;
+		this.usermoney=0;
+	}
 	
 	@Override
 	public boolean equals(Object obj) {
-		if (obj instanceof UserDTO) {
-			UserDTO target = (UserDTO) obj;
-			if (this.userid.equals(target.userid)) {
+		if(obj instanceof UserDTO) {
+			UserDTO target = (UserDTO)obj;
+			if(this.userid.equals(target.userid)) {
 				return true;
 			}
 		}
 		return false;
 	}
-
+	
 	@Override
 	public String toString() {
-		return userid;
+		return userid+"\t"+userpw+"\t"+username+"\t"+useremail+"\t"+userphone+"\t"
+				+useraddr+"\t"+userbday+"\t"+usercoupon+"\t"+usermoney;
 	}
-
-	public String getUserid() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	
 }

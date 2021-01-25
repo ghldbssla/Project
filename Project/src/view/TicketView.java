@@ -4,16 +4,35 @@ import java.util.Scanner;
 
 public class TicketView {
 	Scanner sc = new Scanner(System.in);
-	
-	String Theater;
+
 	public TicketView() {
-		
-		System.out.println("±ØÀåÀ» ÀÔ·ÂÇØÁÖ¼¼¿ä.");
-		String answer = sc.next();
-		//dao·Î ±ØÀå¿¡ ¸Â´Â »ó¿µ ¿µÈ­¿Í ³¯Â¥ ½Ã°£µîÀ» º¸¿©ÁØ´Ù.
-		
+
+		while (true) {
+
+			System.out.println("1. ìƒì˜ê´€ ì„ íƒ/n2. ì˜í™” ì„ íƒ/n3. ë‚˜ê°€ê¸°");
+			int choice = sc.nextInt();
+
+			if (choice == 3) {
+				System.out.println("ì´ì „ í™”ë©´ìœ¼ë¡œ ë˜ëŒì•„ê°‘ë‹ˆë‹¤.");
+				break;
+			}
+
+			switch (choice) {
+			case 1:
+				// ìƒì˜ê´€ ì„ íƒ
+				new TheaterView();
+
+				break;
+			case 2:
+				// ì˜í™” ì„ íƒ
+				new MovieChoiceView();
+				break;
+			default:
+				System.out.println("ë‹¤ì‹œ ì…ë ¥í•´ ì£¼ì„¸ìš”.\n");
+			}
+
+		}
+
 	}
 
-	
-	
 }

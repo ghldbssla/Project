@@ -26,7 +26,7 @@ public class CrawLing {
 		String url = "https://movie.naver.com/movie/running/current.nhn";
 		options.setCapability("ignoreProtectedModeSettings", true);
 		WebDriver driver = new ChromeDriver(options);
-		// --------±¸±ÛÀ» ÀÌ¹Ì Å² »óÅÂ--------------------------------------------
+		// --------êµ¬ê¸€ì„ ì´ë¯¸ í‚¨ ìƒíƒœ--------------------------------------------
 		driver.get(url);
 
 		try {
@@ -63,10 +63,10 @@ public class CrawLing {
 				cnt++;
 
 				full += f_u_l_l + ";";
-				if (f_u_l_l.equals("¾Ë·º½º ½´Å¸´õ¸¸") || f_u_l_l.equals("º¥ ½ºÅ¸¼¾") || f_u_l_l.equals("±è¿ëÁø")
-						|| f_u_l_l.equals("Á¸ ³ëÀÌ¸¶ÀÌ¾î")) {
+				if (f_u_l_l.equals("ì•Œë ‰ìŠ¤ ìŠˆíƒ€ë”ë§Œ") || f_u_l_l.equals("ë²¤ ìŠ¤íƒ€ì„¼") || f_u_l_l.equals("ê¹€ìš©ì§„")
+						|| f_u_l_l.equals("ì¡´ ë…¸ì´ë§ˆì´ì–´")) {
 					cnt++;
-					full += "¾øÀ½;";
+					full += "ì—†ìŒ;";
 				}
 				if (cnt == 3) {
 					arFull.add(full);
@@ -89,13 +89,12 @@ public class CrawLing {
 			actorAr.add(gen_dir_act[i][2]);
 		}
 
-		for (int i = 0; i < titleAr.size(); i++) {
-
+		for (int i = 0; i < genreAr.size(); i++) {
 			mdao.input(titleAr.get(i), ratesAr.get(i), genreAr.get(i), directorAr.get(i), actorAr.get(i));
 		}
-		System.out.println("ÇöÀç »ó¿µÀÛ ¾÷µ¥ÀÌÆ® ¿Ï·á!");
+		System.out.println("í˜„ì¬ ìƒì˜ì‘ ì—…ë°ì´íŠ¸ ì™„ë£Œ!");
 		// --------------------------------------------------------------------------
-		// url¿¡¼­ »ó¿µ¿¹Á¤ÀÛ Å¬¸¯, Á¤º¸ °¡Á®¿À±â
+		// urlì—ì„œ ìƒì˜ì˜ˆì •ì‘ í´ë¦­, ì •ë³´ ê°€ì ¸ì˜¤ê¸°
 		WebElement searchInput = driver.findElement(By.xpath("//*[@id=\"navi_movie\"]/li[2]/a/em"));
 		searchInput.click();
 
@@ -115,8 +114,8 @@ public class CrawLing {
 		ArrayList<String> directorAr_s = new ArrayList<>();
 		ArrayList<String> actorAr_s = new ArrayList<>();
 
-		// full_sÀº µ¥ÀÌÅÍ°¡ Àå¸£, °¨µ¶, ¹è¿ì·Î ³ª¿À±â ¶§¹®¿¡ Á¤º¸°¡ 100°³ ³Ñ°Ô °¡Á®¿À¸é ¿¡·¯°¡ ³²
-		// µû¶ó¼­ 34°³ÀÇ ¿µÈ­¸¸ °¡Á®¿Àµµ·Ï ±¸Çö
+		// full_sì€ ë°ì´í„°ê°€ ì¥ë¥´, ê°ë…, ë°°ìš°ë¡œ ë‚˜ì˜¤ê¸° ë•Œë¬¸ì— ì •ë³´ê°€ 100ê°œ ë„˜ê²Œ ê°€ì ¸ì˜¤ë©´ ì—ëŸ¬ê°€ ë‚¨
+		// ë”°ë¼ì„œ 34ê°œì˜ ì˜í™”ë§Œ ê°€ì ¸ì˜¤ë„ë¡ êµ¬í˜„
 		for (WebElement element : listTitle_s) {
 			String title_s = element.findElement(By.tagName("a")).getText();
 			titleAr_s.add(title_s);
@@ -145,9 +144,9 @@ public class CrawLing {
 				cnt++;
 
 				full_s += f_u_l_l_s + ";";
-				if (f_u_l_l_s.equals("½ººê¾ßÅä½½¶óºê Æ÷µå°¡¿¡ºê½ºÅ°") || f_u_l_l_s.equals("Å¸¹«¶ó ÄÚÅ¸·Î")) {
+				if (f_u_l_l_s.equals("ìŠ¤ë¸Œì•¼í† ìŠ¬ë¼ë¸Œ í¬ë“œê°€ì—ë¸ŒìŠ¤í‚¤") || f_u_l_l_s.equals("íƒ€ë¬´ë¼ ì½”íƒ€ë¡œ")) {
 					cnt++;
-					full_s += "¾øÀ½;";
+					full_s += "ì—†ìŒ;";
 				}
 			}
 			if (cnt == 3) {
@@ -158,25 +157,63 @@ public class CrawLing {
 
 		}
 		String[][] gen_dir_act_s = new String[50][3];
-			for (int i = 0; i < arFull_s.size(); i++) {
+		for (int i = 0; i < arFull_s.size(); i++) {
 
 			gen_dir_act_s[i] = arFull_s.get(i).split(";");
 		}
-		for (int i = 0;  i< gen_dir_act_s.length; i++) {
-				if(gen_dir_act_s[i][0]==null||gen_dir_act_s[i][1]==null||gen_dir_act_s[i][2]==null) {
-					break;
-				}
-				genreAr_s.add(gen_dir_act_s[i][0]);
-				directorAr_s.add(gen_dir_act_s[i][1]);
-				actorAr_s.add(gen_dir_act_s[i][2]);
+		for (int i = 0; i < gen_dir_act_s.length; i++) {
+			if (gen_dir_act_s[i][0] == null || gen_dir_act_s[i][1] == null || gen_dir_act_s[i][2] == null) {
+				break;
+			}
+			genreAr_s.add(gen_dir_act_s[i][0]);
+			directorAr_s.add(gen_dir_act_s[i][1]);
+			actorAr_s.add(gen_dir_act_s[i][2]);
 		}
 
 		for (int i = 0; i < genreAr_s.size(); i++) {
-			mdao.input_s(titleAr_s.get(i),genreAr_s.get(i),directorAr_s.get(i),actorAr_s.get(i));
+			mdao.input_s(titleAr_s.get(i), genreAr_s.get(i), directorAr_s.get(i), actorAr_s.get(i));
 		}
 
-		System.out.println("¿µÈ­ ¸ñ·Ï ¾÷µ¥ÀÌÆ® ¿Ï·á!");
-		driver.close();
-	}
+		System.out.println("ì˜í™” ëª©ë¡ ì—…ë°ì´íŠ¸ ì™„ë£Œ!");
+		// -----------------------------------------------------
+		ArrayList<String> theater1 = new ArrayList<>();
+		// ì‚¬ì´íŠ¸ë²ˆí˜¸ë§ˆë‹¤ ë³´ì—¬ì§€ëŠ” ì˜í™”ê´€ ì¥ì†Œê°€ ë‹¤ë¦„
+		String[] areaNum = { "01", "02", "202", "12", "03", "11", "05", "204", "206" };
+		String[] areaName = { "ì„œìš¸", "ê²½ê¸°", "ì¸ì²œ", "ê°•ì›", "ëŒ€ì „/ì¶©ì²­", "ëŒ€êµ¬", "ë¶€ì‚°/ìš¸ì‚°", "ê²½ìƒ", "ê´‘ì£¼/ì „ë¼/ì œì£¼" };
+		cnt = 0;
+		// forë¬¸ìœ¼ë¡œ ì§€ì—­ë§ˆë‹¤ í¬ë¡¤ë§í•´ì¤Œ
 
+		// í˜¹ì‹œ ëª¨ë¥´ë‹ˆê¹Œ sleepìœ¼ë¡œ 1ì´ˆ ëŒ€ê¸°
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+		}
+		url = "http://www.cgv.co.kr/theaters/?areacode=01";// ì‚¬ì´íŠ¸ ì´ë¦„ì„ forë¬¸ìœ¼ë¡œ ë°˜ë³µí•´ì¤Œ
+		driver.get(url);
+
+		// ìƒì˜ê´€ ì´ë¦„ ë° ì¥ì†Œê°€ ì í˜€ìˆëŠ” ëª¨ë“  ë¶€ë¶„(li) í¬ë¡¤ë§
+		List<WebElement> theater = driver.findElement(By.className("sect-city")).findElements(By.tagName("li"));
+		// ì„œìš¸
+		// ê°•ë‚¨ CGV
+		// ê°•ë³€ CGV
+		// ...
+		// ê²½ê¸°
+		// null - ì§€ì—­ì´ ë°”ë€Œë©´ nullë¡œ í¬ë¡¤ë§í•¨
+
+		// í˜¹ì‹œ ëª¨ë¥´ë‹ˆê¹Œ sleepìœ¼ë¡œ 1ì´ˆ ëŒ€ê¸°
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+		}
+		cnt=0;
+		for (int j = 1; j < theater.size(); j++) {
+			WebElement t = theater.get(j);
+			String name = t.getText(); // -- ìƒì˜ê´€ ë° ì§€ì—­ì„ ë‹¤ í¬ë¡¤ë§í•¨
+			if (cnt==30) {
+				break;
+			}
+			cnt++;
+			mdao.input(name);
+		}
+	}
 }
