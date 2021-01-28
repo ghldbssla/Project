@@ -1,6 +1,9 @@
 package dto;
 
 public class UserDTO {
+	//¾ÆÀÌµğ	ºñ¹Ğ¹øÈ£	ÀÌ¸§	³ªÀÌ	ÇÚµåÆù¹øÈ£	ÁÖ¼Ò	ÃßÃµ¼ö	°Å·¡¼ö
+	
+	//alt shift a ÈÄ / shift ´©¸¥Ã¤ ¹æÇâÅ°·Î Ä¿¼­ ´Ã¸®°í ¾²±â!
 	private String userid;
 	private String userpw;
 	private String username;
@@ -11,7 +14,7 @@ public class UserDTO {
 	private int usercoupon;
 	private int usermoney;
 	
-	//alt shift s > r : getter, setter ï¿½ï¿½ï¿½ï¿½ï¿½
+	//alt shift s > r : getter, setter ¸¸µé±â
 	public String getUserid() {
 		return userid;
 	}

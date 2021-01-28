@@ -10,40 +10,40 @@ public class MovieView {
 	public MovieView() {
 		UserDAO udao = new UserDAO();
 		MovieDAO mdao = new MovieDAO();
-		System.out.println("MovieViewì…ë‹ˆë‹¤.");
+		System.out.println("MovieViewÀÔ´Ï´Ù.");
 		Scanner sc = new Scanner(System.in);
 		while (true) {
-			System.out.print("1. í˜„ì¬ ìƒì˜ì‘ ì •ë³´\n2. ê°œë´‰ ì˜ˆì •ì‘ ì •ë³´\n3. ì˜ˆë§¤í•˜ê¸°\n4. ë’¤ë¡œê°€ê¸°");
+			System.out.print("1. ÇöÀç »ó¿µÀÛ Á¤º¸\n2. °³ºÀ ¿¹Á¤ÀÛ Á¤º¸\n3. ¿¹¸ÅÇÏ±â\n4. µÚ·Î°¡±â");
 			int choice = sc.nextInt();
 
 			if (choice == 4) {
-				System.out.println("ì´ì „ í™”ë©´ìœ¼ë¡œ ëŒì•„ê°‘ë‹ˆë‹¤.");
+				System.out.println("ÀÌÀü È­¸éÀ¸·Î µ¹¾Æ°©´Ï´Ù.");
 				break;
 			}
 			switch (choice) {
 			case 1:
-				// í˜„ì¬ ìƒì˜ì‘ ì •ë³´
-				System.out.println("í˜„ì¬ ìƒì˜ì‘ ì •ë³´");
+				// ÇöÀç »ó¿µÀÛ Á¤º¸
+				System.out.println("ÇöÀç »ó¿µÀÛ Á¤º¸");
 				System.out.println(mdao.NowList());
 				new NowListView();
 				break;
 			case 2:
-				// ê°œë´‰ ì˜ˆì •ì‘ ì •ë³´
-				System.out.println("ê°œë´‰ ìƒì˜ì‘ ì •ë³´");
+				// °³ºÀ ¿¹Á¤ÀÛ Á¤º¸
+				System.out.println("°³ºÀ »ó¿µÀÛ Á¤º¸");
 				System.out.println(mdao.SoonList());
 				new SoonListView();
 				break;
 			case 3:
-				//ì˜ˆë§¤í•˜ê¸°(ë¡œê·¸ì¸ -> ì˜ˆë§¤í™”ë©´)
+				//¿¹¸ÅÇÏ±â(·Î±×ÀÎ -> ¿¹¸ÅÈ­¸é)
 				new LoginView();
 				if(true) {
 					new TicketView();
 				}else {
-					System.out.println("MovieView ë¡œê·¸ì¸ ì‹¤íŒ¨");
+					System.out.println("MovieView ·Î±×ÀÎ ½ÇÆĞ");
 				}
 				break;
 			default:
-				System.out.println("ë‹¤ì‹œ ì…ë ¥í•´ ì£¼ì„¸ìš”.\n");
+				System.out.println("´Ù½Ã ÀÔ·ÂÇØ ÁÖ¼¼¿ä.\n");
 			}
 		}
 	}

@@ -4,24 +4,26 @@ import java.util.Scanner;
 
 public class TicketingView {
 	public TicketingView() {
+		System.out.println("Æ¼ÄÉÆÃºä ÀÔ´Ï´Ù.");
 		Scanner sc = new Scanner(System.in);
 		while (true) {
-			System.out.println("1.ê²°ì œí•˜ê¸°\n2. ì·¨ì†Œí•˜ê¸°\n3. ì˜ˆë§¤ì •ë³´ í™•ì¸\n4. ë’¤ë¡œê°€ê¸°");
+			System.out.println("1. °áÁ¦ÇÏ±â\n2. Ãë¼ÒÇÏ±â\n3. ¿¹¸ÅµÈ ¿µÈ­ Á¤º¸ \n4. ³ª°¡±â");
 			int choice = sc.nextInt();
 			if (choice == 4) {
+				System.out.println("ÀÌÀü È­¸éÀ¸·Î µÇµ¹¾Æ°©´Ï´Ù.");
 				new TicketView();
 			}
 			switch (choice) {
 			case 1:
-				//ê²°ì œí•˜ê¸°
+				// °áÁ¦ÇÏ±â
 				new PayView();
 				break;
 			case 2:
-				//ì·¨ì†Œí•˜ê¸°
+				// Ãë¼ÒÇÏ±â
 				new CancleView();
 				break;
 			case 3:
-				//ì˜ˆë§¤ì •ë³´ í™•ì¸
+				// ¿¹¸ÅµÈ ¿µÈ­ Á¤º¸
 				new MyTicketView();
 				break;
 			}

@@ -3,32 +3,36 @@ package view;
 import java.util.Scanner;
 
 import dao.MovieDAO;
+import dao.Seat;
 
 public class MovieChoiceView {
 	public MovieChoiceView() {
-		//ì˜í™” ì‹œê°„ëŒ€
-		//ì˜í™” ì¢Œì„ ì„ íƒ
+		//¿µÈ­ ½Ã°£´ë
+		//¿µÈ­ ÁÂ¼® ¼±ÅÃ
+		Seat seat = new Seat();
 		MovieDAO mdao = new MovieDAO();
 		Scanner sc=new Scanner(System.in);
 		
 		while(true) {
-			mdao.MovieChoice();
+			System.out.println(mdao.NowList());
 			
-			System.out.println("ì˜í™”ë¥¼ ì„ íƒí•´ì£¼ì„¸ìš”.");
+			System.out.print("¿µÈ­¸¦ ¼±ÅÃÇØÁÖ¼¼¿ä.");
 			String MovieChoice =sc.next();
 			
-			//moviechoì— ìˆëŠ”ê²Œ ì´ë¦„ì´ ê°™ë‹¤ë©´ moivesitì„ ë³´ì—¬ì£¼ê³  ìë¦¬ë¥¼ dbì— ì €ì¥í•´ì•¼í•¨
-			if(MovieChoice==mdao.MovieChoice()) {
-
-				System.out.println(mdao.Movietimesit());
+			//moviecho¿¡ ÀÖ´Â°Ô ÀÌ¸§ÀÌ °°´Ù¸é moivesitÀ» º¸¿©ÁÖ°í ÀÚ¸®¸¦ db¿¡ ÀúÀåÇØ¾ßÇÔ
+			if(MovieChoice.equals(mdao.MovieChoice(MovieChoice))) {
+				
+				System.out.println("ÁÂ¼® ¼±ÅÃ");
+				//¿¡·¯°¡ ³² -- °¡Á®¿À´Â °ªÀÌ nullÀÓ
+				System.out.println(seat.Movietimesit(MovieChoice));
 				String choice = sc.next();
 				
-				//dbì— ì €ì¥
-				mdao.Sit(choice);
+				//db¿¡ ÀúÀå
+				seat.Sit(choice);
 				
 				new TicketingView();
 			}else {
-				System.out.println("ì˜ëª»ì…ë ¥í•˜ì…¨ìŠµë‹ˆë‹¤.");
+				System.out.println("Àß¸øÀÔ·ÂÇÏ¼Ì½À´Ï´Ù.");
 			}
 		}
 	

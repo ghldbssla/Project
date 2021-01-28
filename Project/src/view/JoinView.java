@@ -7,44 +7,82 @@ import dto.UserDTO;
 
 public class JoinView {
 	public JoinView() {
-		// 아이디 비밀번호 이름 나이 핸드폰번호 주소 추천수 거래수
 		Scanner sc = new Scanner(System.in);
 		UserDAO udao = new UserDAO();
-		System.out.print("아이디 : ");
-		String userid = sc.next();
-		//아이디 체크라는것은 기능 이므로 dao에다가 구현을 해놓고
-		//View단에서는 단순하게 호출하여 사용하기만 한다.
-/*	private String userid;
-	private String userpw;
-	private String username;
-	private String email;
-	private String userphone;
-	private String useraddr;
-	private String bday;
-	private int coupon;
-	private int money;*/
-		if (!udao.checkDup(userid)) {
-			System.out.println("중복된 아이디가 있습니다. 다시 시도해 주세요.");
-		} else {
-			System.out.print("비밀번호 : ");
-			String userpw = sc.next();
-			System.out.print("이름 : ");
-			String username = sc.next();
-			System.out.print("나이 : ");
-			String email = sc.next();
-			System.out.print("핸드폰 번호 : ");
-			String userphone = sc.next();
-			System.out.print("주소 : ");
-			sc.nextLine();
-			String useraddr = sc.nextLine();
-			System.out.print("핸드폰 번호 : ");
-			String bday = sc.next();
-			//정보가 6개나 되기 때문에 join이라는 메소드에 넘겨주려면 매개변수가
-			//6개가 필요하다. 따라서 너무 데이터를 넘기기 힘들기 때문에
-			//UserDTO로 포장해준다.
-			UserDTO newUser = new UserDTO(userid, userpw, username, email, userphone, useraddr,bday);
+		String userid;
+		String userpw;
+		String useremail;
+		String bday;
+		String checkpassView = "사용가능한 비밀번호입니다.";
+		String checkemailView = "사용가능한 이메일 입니다.";
 			
+		//아이디
+		while(true) {
+			System.out.print("아이디 : ");
+			userid = sc.next();
+			if (udao.checkID(userid)) {
+				System.out.println("사용가능한 아이디입니다.");
+				break;
+			}else {
+				System.out.println("중복된 아이디가 있습니다.");
+			}
+		}
+		//비밀번호
+		while(true) {
+			System.out.print("비밀번호 : ");
+			userpw = sc.next();
+			String checkpass = udao.checkPass(userpw);
+			System.out.println(checkpass);
+			if (checkpass.equals(checkpassView)) {
+				break;
+			}
 		}
 
+		//이름
+		System.out.print("이름 : ");
+		String username = sc.next();
+		//이메일
+		while (true) {
+			
+			System.out.print( "이메일 : ");
+			useremail = sc.next();
+			if (!udao.dupEmail(useremail).equals("0")) {
+				System.out.println("존재하는 이메일입니다.");
+			}else {
+				String checkemail = udao.checkEmail(useremail);
+				System.out.println(checkemail);
+				if (checkemail.equals(checkemailView)) {
+					break;
+				}
+				
+			}
+			
+		}
+		//핸드폰 번호
+		System.out.print("핸드폰 번호 : ");
+		String userphone = sc.next();
+		//주소
+		System.out.print("주소 : ");
+		sc.nextLine();
+		String useraddr = sc.nextLine();
+		//생일
+		while(true) {
+			System.out.print("생일 : (예 880502) ");
+			bday = sc.next();
+			if (bday.length()==6) {
+				break;
+			}else {
+				System.out.println("다시 입력해주십시오.");
+			}
+		}
+		//쿠폰
+		int usercoupon = 0;
+		//계좌
+		int usermoney = 0;
+		
+		UserDTO newUser = new UserDTO(userid, userpw, username, useremail, userphone, useraddr, bday, usercoupon, usermoney);
+		udao.join(newUser);
+		System.out.println("회원가입 성공!");
+		System.out.println(userid + "님 가입을 환영합니다.");
 	}
 }

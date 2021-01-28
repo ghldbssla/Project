@@ -2,36 +2,41 @@ package view;
 
 import java.util.Scanner;
 
+import dao.MovieDAO;
+
 public class TicketView {
 	Scanner sc = new Scanner(System.in);
 
+
 	public TicketView() {
 
-		while (true) {
+		while(true) {
 
-			System.out.println("1. ìƒì˜ê´€ ì„ íƒ/n2. ì˜í™” ì„ íƒ/n3. ë‚˜ê°€ê¸°");
+			System.out.println("1. »ó¿µ°ü ¼±ÅÃ\n2. ¿µÈ­ ¼±ÅÃ\n3. ³ª°¡±â");
 			int choice = sc.nextInt();
 
-			if (choice == 3) {
-				System.out.println("ì´ì „ í™”ë©´ìœ¼ë¡œ ë˜ëŒì•„ê°‘ë‹ˆë‹¤.");
+			if(choice==3) {
+				System.out.println("ÀÌÀü È­¸éÀ¸·Î µÇµ¹¾Æ°©´Ï´Ù.");
 				break;
 			}
 
 			switch (choice) {
 			case 1:
-				// ìƒì˜ê´€ ì„ íƒ
+				// »ó¿µ°ü ¼±ÅÃ
 				new TheaterView();
 
 				break;
 			case 2:
-				// ì˜í™” ì„ íƒ
+				// ¿µÈ­ ¼±ÅÃ
 				new MovieChoiceView();
 				break;
-			default:
-				System.out.println("ë‹¤ì‹œ ì…ë ¥í•´ ì£¼ì„¸ìš”.\n");
+
+
 			}
 
+
 		}
+
 
 	}
 

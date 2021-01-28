@@ -17,13 +17,13 @@ public class DBConnection {
 		if(conn==null) {
 			try {
 				Class.forName(driver);
-				System.out.println("jdbc Driver ï¿½Îµï¿½ ï¿½ï¿½ï¿½ï¿½");
+				System.out.println("jdbc Driver ·Îµù ¼º°ø");
 				conn=DriverManager.getConnection(url,user,password);
-				System.out.println("ï¿½ï¿½ï¿½ï¿½Å¬ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
+				System.out.println("¿À¶óÅ¬ ¿¬°á ¼º°ø");
 			} catch (ClassNotFoundException e) {
-				System.out.println("jdbc Driver ï¿½Îµï¿½ ï¿½ï¿½ï¿½ï¿½");
+				System.out.println("jdbc Driver ·Îµù ½ÇÆÐ");
 			} catch (SQLException sqle) {
-				System.out.println("ï¿½ï¿½ï¿½ï¿½Å¬ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
+				System.out.println("¿À¶óÅ¬ ¿¬°á ½ÇÆÐ");
 			}
 		}
 		return conn;

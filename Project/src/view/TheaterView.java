@@ -8,12 +8,12 @@ import dto.UserDTO;
 
 public class TheaterView {
 	public TheaterView() {
-		//daoë¡œ ê·¹ì¥ì— ë§ëŠ” ìƒì˜ ì˜í™”ì™€ ë‚ ì§œ ì‹œê°„ë“±ì„ ë³´ì—¬ì¤€ë‹¤.
+		//dao·Î ±ØÀå¿¡ ¸Â´Â »ó¿µ ¿µÈ­¿Í ³¯Â¥ ½Ã°£µîÀ» º¸¿©ÁØ´Ù.
 		MovieDAO mdao = new MovieDAO();
 		Scanner sc=new Scanner(System.in);
 
 		while(true) {
-			System.out.println("ê·¹ì¥ìœ„ì¹˜ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”.");
+			System.out.println("±ØÀåÀ§Ä¡¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä.");
 			String Theaterlo=sc.next();
 
 			if(Theaterlo==mdao.Movietimedate(Theaterlo)) {
@@ -22,10 +22,11 @@ public class TheaterView {
 				
 				new TicketingView();
 			}else {
-				System.out.println("ì˜ëª»ì…ë ¥í•˜ì…¨ìŠµë‹ˆë‹¤.");
+				System.out.println("Àß¸øÀÔ·ÂÇÏ¼Ì½À´Ï´Ù.");
 			}
 		}
 	}
 
 
 }
+

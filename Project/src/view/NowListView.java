@@ -9,23 +9,23 @@ public class NowListView {
 		MovieDAO mdao = new MovieDAO();
 		Scanner sc = new Scanner(System.in);
 		while (true) {
-			System.out.println("1. ì°œí•˜ê¸°\n2. ë’¤ë¡œê°€ê¸°");
+			System.out.println("1. ÂòÇÏ±â\n2. µÚ·Î°¡±â");
 			int choice = sc.nextInt();
 			if (choice == 2) {
 				break;
 			} else if (choice == 1) {
 				new LoginView();
-				System.out.println("ì°œí•˜ê¸°ì— ì¶”ê°€í•  ì˜í™”ì œëª©ì„ ì…ë ¥í•´ì£¼ì„¸ìš”.");
+				System.out.println("ÂòÇÏ±â¿¡ Ãß°¡ÇÒ ¿µÈ­Á¦¸ñÀ» ÀÔ·ÂÇØÁÖ¼¼¿ä.");
 				sc.nextLine();
 				String title=sc.nextLine();
 				if (true) {
 					mdao.create(title);
 				} else {
-					System.out.println("ìƒì˜ ì¤‘ì¸ ì‘í’ˆ ì°œí•˜ê¸° ë¡œê·¸ì¸ ì‹¤íŒ¨");
+					System.out.println("»ó¿µ ÁßÀÎ ÀÛÇ° ÂòÇÏ±â ·Î±×ÀÎ ½ÇÆĞ");
 				}
 				break;
 			} else {
-				System.out.println("ë‹¤ì‹œ ì…ë ¥í•´ ì£¼ì„¸ìš”.\n");
+				System.out.println("´Ù½Ã ÀÔ·ÂÇØ ÁÖ¼¼¿ä.\n");
 			}
 
 		}

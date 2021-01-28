@@ -17,7 +17,7 @@ public class MovieDAO {
 
 	}
 
-	// ìƒì˜ ì˜í™” ëª©ë¡(ì œëª©,í‰ì ,ì¥ë¥´,ê°ë…,ë°°ìš°)
+	// »ó¿µ ¿µÈ­ ¸ñ·Ï(Á¦¸ñ,ÆòÁ¡,Àå¸£,°¨µ¶,¹è¿ì)
 	public String NowList() {
 		String sql = "SELECT * FROM TBL_MOVIE_INFO ORDER BY rates DESC";
 		String result = "";
@@ -25,8 +25,8 @@ public class MovieDAO {
 			pstm = conn.prepareStatement(sql);
 			rs = pstm.executeQuery();
 			while (rs.next()) {
-				result += "ì˜í™” ì œëª© : \"" + rs.getString(1) + "\"\n\t-í‰ì  : " + rs.getString(2) + "\n\t-ì¥ë¥´ : "
-						+ rs.getString(3) + "\n\t-ê°ë… : \"" + rs.getString(4) + "\"\n\t-ë°°ìš° : \"" + rs.getString(5)
+				result += "¿µÈ­ Á¦¸ñ : \"" + rs.getString(1) + "\"\n\t-ÆòÁ¡ : " + rs.getString(2) + "\n\t-Àå¸£ : "
+						+ rs.getString(3) + "\n\t-°¨µ¶ : \"" + rs.getString(4) + "\"\n\t-¹è¿ì : \"" + rs.getString(5)
 						+ "\"\n\n";
 			}
 		} catch (SQLException e) {
@@ -36,13 +36,13 @@ public class MovieDAO {
 				rs.close();
 				pstm.close();
 			} catch (SQLException e) {
-				System.out.println("ì•Œ ìˆ˜ ì—†ëŠ” ì˜¤ë¥˜");
-			}
+				System.out.println("¾Ë ¼ö ¾ø´Â ¿À·ù");
+			} 
 		}
 		return result;
 	}
 
-	// ê°œë´‰ ì˜ˆì • ì˜í™” ëª©ë¡(ì œëª©,ì¥ë¥´,ê°ë…,ë°°ìš°)
+	// °³ºÀ ¿¹Á¤ ¿µÈ­ ¸ñ·Ï(Á¦¸ñ,Àå¸£,°¨µ¶,¹è¿ì)
 	public String SoonList() {
 		String sql = "SELECT * FROM TBL_MOVIE_INFO_SOON ORDER BY title";
 		String result = "";
@@ -50,8 +50,8 @@ public class MovieDAO {
 			pstm = conn.prepareStatement(sql);
 			rs = pstm.executeQuery();
 			while (rs.next()) {
-				result += "ì˜í™” ì œëª© : \"" + rs.getString(1) + "\"\n\t-ì¥ë¥´ : " + rs.getString(2) + "\n\t-ê°ë… : \""
-						+ rs.getString(3) + "\"\n\t-ë°°ìš° : \"" + rs.getString(4) + "\"\n\n";
+				result += "¿µÈ­ Á¦¸ñ : \"" + rs.getString(1) + "\"\n\t-Àå¸£ : " + rs.getString(2) + "\n\t-°¨µ¶ : \""
+						+ rs.getString(3) + "\"\n\t-¹è¿ì : \"" + rs.getString(4) + "\"\n\n";
 			}
 		} catch (SQLException e) {
 			System.out.println(e);
@@ -60,24 +60,24 @@ public class MovieDAO {
 				rs.close();
 				pstm.close();
 			} catch (SQLException e) {
-				System.out.println("ì•Œ ìˆ˜ ì—†ëŠ” ì˜¤ë¥˜");
+				System.out.println("¾Ë ¼ö ¾ø´Â ¿À·ù");
 			}
 		}
 		return result;
 	}
 
 	public String myticket(String session_id) {
-		String sql = "SELECT * FROM MOVIE_TICKET WHERE user_id=?";
+		String sql = "SELECT * FROM TBL_MOVIE_TICKET WHERE user_id=?";
 		String result = "";
 		try {
-			// pstm ê°ì²´ìƒì„±
+			// pstm °´Ã¼»ı¼º
 			pstm = conn.prepareStatement(sql);
 			pstm.setString(1, Session.get("session_id"));
-			// SELECT ë¬¸ì´ê¸° ë•Œë¬¸ì— ê²€ìƒ‰ëœ ê²°ê³¼ê°€ ì¡´ì¬í•˜ê³  ê·¸ê²ƒì„ rsê°ì²´ë¡œ ë°›ì•„ì˜¨ë‹¤.
+			// SELECT ¹®ÀÌ±â ¶§¹®¿¡ °Ë»öµÈ °á°ú°¡ Á¸ÀçÇÏ°í ±×°ÍÀ» rs°´Ã¼·Î ¹Ş¾Æ¿Â´Ù.
 			rs = pstm.executeQuery();
-			// rs.next() : ë‹¤ìŒ í–‰(ì¡´ì¬í•˜ë©´ true)
+			// rs.next() : ´ÙÀ½ Çà(Á¸ÀçÇÏ¸é true)
 			if (rs.next()) {
-				// rs.getInt(1) : 1ë²ˆì§¸ ì»¬ëŸ¼ì˜ ì •ìˆ˜ê°’ ê°€ì ¸ì˜¤ê¸°
+				// rs.getInt(1) : 1¹øÂ° ÄÃ·³ÀÇ Á¤¼ö°ª °¡Á®¿À±â
 				result += rs.getString(1);
 			}
 		} catch (SQLException e) {
@@ -87,15 +87,15 @@ public class MovieDAO {
 				rs.close();
 				pstm.close();
 			} catch (SQLException e) {
-				System.out.println("ì•Œ ìˆ˜ ì—†ëŠ” ì˜¤ë¥˜");
+				System.out.println("¾Ë ¼ö ¾ø´Â ¿À·ù");
 			}
 		}
-		// resultê°€ 0ì´ë©´ ì¤‘ë³µë˜ì§€ ì•ŠëŠ”ë‹¤ëŠ” ëœ»ì´ë¯€ë¡œ true ë¦¬í„´
+		// result°¡ 0ÀÌ¸é Áßº¹µÇÁö ¾Ê´Â´Ù´Â ¶æÀÌ¹Ç·Î true ¸®ÅÏ
 		return result;
 	}
-	// -------------------------------í¬ë¡¤ë§
-	// -------------------------------í¬ë¡¤ë§
-	//ì§€ì—­ë³„ ìƒì˜ê´€ í…Œì´ë¸”ì— ë°ì´í„° ì¶”ê°€
+	// -------------------------------Å©·Ñ¸µ
+	// -------------------------------Å©·Ñ¸µ
+	//Áö¿ªº° »ó¿µ°ü Å×ÀÌºí¿¡ µ¥ÀÌÅÍ Ãß°¡
 	public void input(String name) {
 		String sql = "INSERT INTO TBL_THEATER(name) VALUES(?)";
 		try {
@@ -103,60 +103,78 @@ public class MovieDAO {
 			pstm.setString(1, name);
 			pstm.executeUpdate();
 		} catch (SQLException e) {
-			System.out.println("ì œëª© ì˜¤ë¥˜");
+			System.out.println("Á¦¸ñ ¿À·ù");
 			System.out.println(e);
 		} finally {
 			try {
 				pstm.close();
 			} catch (SQLException e) {
-				System.out.println("ì•Œ ìˆ˜ ì—†ëŠ” ì˜¤ë¥˜");
+				System.out.println("¾Ë ¼ö ¾ø´Â ¿À·ù");
 			}
 		}
 	}
 
 		
-	// í˜„ì¬ ìƒì˜ì‘ í…Œì´ë¸” ë°ì´í„° ì‚­ì œ
+	// ÇöÀç »ó¿µÀÛ Å×ÀÌºí µ¥ÀÌÅÍ »èÁ¦
 	public void delete() {
 
 		String sql = "DELETE FROM TBL_MOVIE_INFO";
 		try {
 			pstm = conn.prepareStatement(sql);
 			pstm.executeUpdate();
-			System.out.println("í˜„ì¬ ìƒì˜ì‘ í…Œì´ë¸” ë°ì´í„° ì‚­ì œ");
+			System.out.println("ÇöÀç »ó¿µÀÛ Å×ÀÌºí µ¥ÀÌÅÍ »èÁ¦");
 		} catch (SQLException e) {
 			System.out.println(e);
 		} finally {
 			try {
 				pstm.close();
 			} catch (SQLException e) {
-				System.out.println("ì•Œ ìˆ˜ ì—†ëŠ” ì˜¤ë¥˜");
+				System.out.println("¾Ë ¼ö ¾ø´Â ¿À·ù");
 			}
 		}
 	}
 
-	// ìƒì˜ ì˜ˆì •ì‘ í…Œì´ë¸” ë°ì´í„° ì‚­ì œ
+	// »ó¿µ ¿¹Á¤ÀÛ Å×ÀÌºí µ¥ÀÌÅÍ »èÁ¦
 	public void delete_soon() {
 
 		String sql = "DELETE FROM TBL_MOVIE_INFO_SOON";
 		try {
 			pstm = conn.prepareStatement(sql);
 			pstm.executeUpdate();
-			System.out.println("ìƒì˜ ì˜ˆì •ì‘ í…Œì´ë¸” ë°ì´í„° ì‚­ì œ");
+			System.out.println("»ó¿µ ¿¹Á¤ÀÛ Å×ÀÌºí µ¥ÀÌÅÍ »èÁ¦");
 		} catch (SQLException e) {
 			System.out.println(e);
 		} finally {
 			try {
 				pstm.close();
 			} catch (SQLException e) {
-				System.out.println("ì•Œ ìˆ˜ ì—†ëŠ” ì˜¤ë¥˜");
+				System.out.println("¾Ë ¼ö ¾ø´Â ¿À·ù");
 			}
 		}
 	}
+	// »ó¿µ°ü Å×ÀÌºí µ¥ÀÌÅÍ »èÁ¦
+		public void delete_cgv() {
 
-	// ë°ì´í„° ì¶”ê°€(ì œëª©,í‰ì ,ì¥ë¥´,ê°ë…,ë°°ìš°)
+			String sql = "DELETE FROM TBL_THEATER";
+			try {
+				pstm = conn.prepareStatement(sql);
+				pstm.executeUpdate();
+				System.out.println("»ó¿µ°ü Å×ÀÌºí µ¥ÀÌÅÍ »èÁ¦");
+			} catch (SQLException e) {
+				System.out.println(e);
+			} finally {
+				try {
+					pstm.close();
+				} catch (SQLException e) {
+					System.out.println("¾Ë ¼ö ¾ø´Â ¿À·ù");
+				}
+			}
+		}
+
+	// µ¥ÀÌÅÍ Ãß°¡(Á¦¸ñ,ÆòÁ¡,Àå¸£,°¨µ¶,¹è¿ì)
 	// titleAr.get(i),ratesAr.get(i),genreAr.get(i),directorAr.get(i),actorAr.get(i)
 	public void input(String title, String rates, String genre, String director, String actor) {
-		String sql = "INSERT INTO TBL_MOVIE_INFO VALUES(?,?,?,?,?)";
+		String sql = "INSERT INTO TBL_MOVIE_INFO(title,rates,genre,director,actor) VALUES(?,?,?,?,?)";
 		try {
 			pstm = conn.prepareStatement(sql);
 			pstm.setString(1, title);
@@ -166,20 +184,20 @@ public class MovieDAO {
 			pstm.setString(5, actor);
 			pstm.executeUpdate();
 		} catch (SQLException e) {
-			System.out.println("ì œëª© ì˜¤ë¥˜");
+			System.out.println("Á¦¸ñ ¿À·ù");
 			System.out.println(e);
 		} finally {
 			try {
 				pstm.close();
 			} catch (SQLException e) {
-				System.out.println("ì•Œ ìˆ˜ ì—†ëŠ” ì˜¤ë¥˜");
+				System.out.println("¾Ë ¼ö ¾ø´Â ¿À·ù");
 			}
 		}
 	}
 
-//sqlë¡œ ìƒì˜ ì˜ˆì •ì‘ ë°ì´í„° ì¶”ê°€
+//sql·Î »ó¿µ ¿¹Á¤ÀÛ µ¥ÀÌÅÍ Ãß°¡
 	public void input_s(String title_s, String genre_s, String director_s, String actor_s) {
-		String sql = "INSERT INTO TBL_MOVIE_INFO_SOON VALUES(?,?,?,?)";
+		String sql = "INSERT INTO TBL_MOVIE_INFO_SOON(title,genre,director,actor) VALUES(?,?,?,?)";
 		try {
 			pstm = conn.prepareStatement(sql);
 			pstm.setString(1, title_s);
@@ -188,76 +206,76 @@ public class MovieDAO {
 			pstm.setString(4, actor_s);
 			pstm.executeUpdate();
 		} catch (SQLException e) {
-			System.out.println("ì œëª© ì˜¤ë¥˜_s");
+			System.out.println("Á¦¸ñ ¿À·ù_s");
 			System.out.println(e);
 		} finally {
 			try {
 				pstm.close();
 			} catch (SQLException e) {
-				System.out.println("ì•Œ ìˆ˜ ì—†ëŠ” ì˜¤ë¥˜");
+				System.out.println("¾Ë ¼ö ¾ø´Â ¿À·ù");
 			}
 		}
 
 	}
 	
-	// -------------------------------í¬ë¡¤ë§
-	// -------------------------------í¬ë¡¤ë§
-//ì˜í™” ì°œ í…Œì´ë¸”(ì˜í™”ì œëª©, id)ì— ì •ë³´ ë„£ê¸°.
+	// -------------------------------Å©·Ñ¸µ
+	// -------------------------------Å©·Ñ¸µ
+//¿µÈ­ Âò Å×ÀÌºí(¿µÈ­Á¦¸ñ, id)¿¡ Á¤º¸ ³Ö±â.
 	public void create(String title) {
 
 		String sql = "INSERT INTO BOOK_TBL VALUES(?,?)";
 		try {
 			pstm = conn.prepareStatement(sql);
 			pstm.setString(1, title);
-			pstm.setString(2, "id");//session.id ì“¸ ì˜ˆì •
+			pstm.setString(2, "id");//session.id ¾µ ¿¹Á¤
 			pstm.executeUpdate();
-			System.out.println("ì°œí•˜ê¸° ì™„ë£Œ!");
+			System.out.println("ÂòÇÏ±â ¿Ï·á!");
 		} catch (SQLException e) {
 			System.out.println(e);
 		} finally {
 			try {
 				pstm.close();
 			} catch (SQLException e) {
-				System.out.println("ì•Œ ìˆ˜ ì—†ëŠ” ì˜¤ë¥˜");
+				System.out.println("¾Ë ¼ö ¾ø´Â ¿À·ù");
 			}
 		}
 	}
-//ì°œ ëª©ë¡ ì „ì²´ ì‚­ì œ
+//Âò ¸ñ·Ï ÀüÃ¼ »èÁ¦
 	public void delete_a() {
 
 		String sql = "DELETE FROM BOOK_TBL WHERE USERID=?";
 		try {
 			pstm = conn.prepareStatement(sql);
-			pstm.setString(1, "id");//session.idë¥¼ ê°€ì ¸ì˜´
+			pstm.setString(1, "id");//session.id¸¦ °¡Á®¿È
 			pstm.executeUpdate();
-			System.out.println("ì°œëª©ë¡ ì„ íƒ ì‚­ì œ");
+			System.out.println("Âò¸ñ·Ï ¼±ÅÃ »èÁ¦");
 		} catch (SQLException e) {
 			System.out.println(e);
 		} finally {
 			try {
 				pstm.close();
 			} catch (SQLException e) {
-				System.out.println("ì•Œ ìˆ˜ ì—†ëŠ” ì˜¤ë¥˜");
+				System.out.println("¾Ë ¼ö ¾ø´Â ¿À·ù");
 			}
 		}
 	}
-	//ì°œ ëª©ë¡ ì„ íƒ ì‚­ì œ
+	//Âò ¸ñ·Ï ¼±ÅÃ »èÁ¦
 		public void delete_c(String title) {
 
 			String sql = "DELETE FROM BOOK_TBL WHERE USERID=? AND TITLE = ?";
 			try {
 				pstm = conn.prepareStatement(sql);
-				pstm.setString(1, "id");//session.idë¥¼ ê°€ì ¸ì˜´
+				pstm.setString(1, "id");//session.id¸¦ °¡Á®¿È
 				pstm.setString(2, title);
 				pstm.executeUpdate();
-				System.out.println("ì°œëª©ë¡ ì„ íƒ ì‚­ì œ");
+				System.out.println("Âò¸ñ·Ï ¼±ÅÃ »èÁ¦");
 			} catch (SQLException e) {
 				System.out.println(e);
 			} finally {
 				try {
 					pstm.close();
 				} catch (SQLException e) {
-					System.out.println("ì•Œ ìˆ˜ ì—†ëŠ” ì˜¤ë¥˜");
+					System.out.println("¾Ë ¼ö ¾ø´Â ¿À·ù");
 				}
 			}
 		}
@@ -270,7 +288,7 @@ public class MovieDAO {
 				pstm.setString(1, "id");
 				rs = pstm.executeQuery();
 				while (rs.next()) {
-					result += "ì•„ì´ë”” : "+rs.getString(2)+"\n\tì˜í™”ì œëª© : "+rs.getString(1)+"\n";
+					result += "¾ÆÀÌµğ : "+rs.getString(2)+"\n\t¿µÈ­Á¦¸ñ : "+rs.getString(1)+"\n";
 				}
 			} catch (SQLException e) {
 				System.out.println(e);
@@ -279,104 +297,107 @@ public class MovieDAO {
 					rs.close();
 					pstm.close();
 				} catch (SQLException e) {
-					System.out.println("ì•Œ ìˆ˜ ì—†ëŠ” ì˜¤ë¥˜");
+					System.out.println("¾Ë ¼ö ¾ø´Â ¿À·ù");
 				}
 			}
 			return result;
 		}
-		//ê·¹ì¥ì…ë ¥ ì‹œ í•´ë‹¹ ë‚ ì§œ ìƒì˜ ì˜í™”ì™€ ë‚ ì§œ ì‹œê°„ë“±ì„ ë³´ì—¬ì¤€ë‹¤.
-		//SQL í…Œì´ë¸” theaterlo(ì˜í™”ê´€ ìœ„ì¹˜) ë§Œë“¤ê¸°
+		//±ØÀåÀÔ·Â ½Ã ÇØ´ç ³¯Â¥ »ó¿µ ¿µÈ­¿Í ³¯Â¥ ½Ã°£µîÀ» º¸¿©ÁØ´Ù.
+		//SQL Å×ÀÌºí theaterlo(¿µÈ­°ü À§Ä¡) ¸¸µé±â
 		public String Movietimedate(String Theaterlo) {
-			String sql = "SELECT M_MOVIE,M_DATE, M_TIME FROM MOVIE_INFO WHERE THEATERLO=? ORDER BY M_NAME";		
+			String sql = "SELECT title,moviedate, theatertime FROM MOVIE_INFO WHERE theaterlo=? ORDER BY title";		
 			String result = "";
 			try {
 				pstm = conn.prepareStatement(sql);
 				pstm.setString(1,Theaterlo);
 				rs = pstm.executeQuery();
 				while (rs.next()) {
-					result += "Î”ì˜í™” ì œëª© : "+rs.getString(1) + "Î”ì˜í™” ë‚ ì§œ : "+rs.getString(4) + "Î”ì˜í™” ì‹œê°„ : "+rs.getString(8) + "\n";
+					result += "¥Ä¿µÈ­ Á¦¸ñ : "+rs.getString(1) + "¥Ä¿µÈ­ ³¯Â¥ : "+rs.getString(2) + "¥Ä¿µÈ­ ½Ã°£ : "+rs.getString(4) + "\n";
 				}
 			} catch (SQLException e) {
-				System.out.println("ì˜í™”ê´€ ìœ„ì¹˜ ì˜¤ë¥˜");
+				System.out.println("¿µÈ­°ü À§Ä¡ ¿À·ù");
 				System.out.println(e);
 			} finally {
 				try {
 					rs.close();
 					pstm.close();
 				} catch (SQLException e) {
-					System.out.println("ì•Œ ìˆ˜ ì—†ëŠ” ì˜¤ë¥˜");
+					System.out.println("¾Ë ¼ö ¾ø´Â ¿À·ù");
 				}
 			}
 
 			return result;
 		}
-		//ì˜í™” ì„ íƒ í›„ ì‹œê°„ê³¼ ì¢Œì„
-		//SQL SIT(ì¢Œì„)í…Œì´ë¸” ë§Œë“¤ê¸°
-		public String Movietimesit() {
-			String sql = "SELECT M_TIME, M_SIT FROM MOVIE_INFO ORDER BY M_TIME";		
+//		//¿µÈ­ ¼±ÅÃ ÈÄ ½Ã°£°ú ÁÂ¼®
+//		//SQL SIT(ÁÂ¼®)Å×ÀÌºí ¸¸µé±â
+//		public String Movietimesit() {
+//			String sql = "SELECT M_TIME, M_SIT FROM MOVIE_INFO ORDER BY M_TIME";		
+//			String result = "";
+//			try {
+//				pstm = conn.prepareStatement(sql);
+//				rs = pstm.executeQuery();
+//				while (rs.next()) {
+//					result += "¥Ä¿µÈ­ ½Ã°£ : "+rs.getString(8) + "¥Ä¿µÈ­ ÁÂ¼® : "+rs.getString(9) + "\n";
+//				}
+//			} catch (SQLException e) {
+//				System.out.println("½Ã°£, ÁÂ¼® ¼±ÅÃ ¿À·ù");
+//				System.out.println(e);
+//			} finally {
+//				try {
+//					rs.close();
+//					pstm.close();
+//				} catch (SQLException e) {
+//					System.out.println("¾Ë ¼ö ¾ø´Â ¿À·ù");
+//				}
+//			}
+//
+//			return result;
+//		}
+		//moviechoiceview¿¡¼­ °£´ÜÇÏ°Ô ¿µÈ­ Á¦¸ñ¸¸ ³ª¿À¸é ¼±ÅÃÇÒ ¼ö ÀÖ°Ô ÇÏ·Á°í ÇÔ 
+		public String MovieChoice(String MovieChoice) {
+			String sql = "SELECT title FROM TBL_MOVIE_INFO WHERE title IN ?";
 			String result = "";
 			try {
 				pstm = conn.prepareStatement(sql);
+				pstm.setString(1,MovieChoice);
 				rs = pstm.executeQuery();
 				while (rs.next()) {
-					result += "Î”ì˜í™” ì‹œê°„ : "+rs.getString(8) + "Î”ì˜í™” ì¢Œì„ : "+rs.getString(9) + "\n";
+					result +=rs.getString(1) ;
 				}
 			} catch (SQLException e) {
-				System.out.println("ì‹œê°„, ì¢Œì„ ì„ íƒ ì˜¤ë¥˜");
+				System.out.println("¿µÈ­ ¼±ÅÃ ºä ¿À·ù");
 				System.out.println(e);
 			} finally {
 				try {
 					rs.close();
 					pstm.close();
 				} catch (SQLException e) {
-					System.out.println("ì•Œ ìˆ˜ ì—†ëŠ” ì˜¤ë¥˜");
-				}
-			}
-
-			return result;
-		}
-		//moviechoiceviewì—ì„œ ê°„ë‹¨í•˜ê²Œ ì˜í™” ì œëª©ë§Œ ë‚˜ì˜¤ë©´ ì„ íƒí•  ìˆ˜ ìˆê²Œ í•˜ë ¤ê³  í•¨ 
-		public String MovieChoice() {
-			String sql = "SELECT * FROM MOVIE_INFO WHERE M_DATE<=SYSDATE ORDER BY M_DATE";
-			String result = "";
-			try {
-				pstm = conn.prepareStatement(sql);
-				rs = pstm.executeQuery();
-				while (rs.next()) {
-					result += "Î”ì˜í™” ì œëª© : "+rs.getString(1) ;
-				}
-			} catch (SQLException e) {
-				System.out.println("ì˜í™” ì„ íƒ ë·° ì˜¤ë¥˜");
-				System.out.println(e);
-			} finally {
-				try {
-					rs.close();
-					pstm.close();
-				} catch (SQLException e) {
-					System.out.println("ì•Œ ìˆ˜ ì—†ëŠ” ì˜¤ë¥˜");
+					System.out.println("¾Ë ¼ö ¾ø´Â ¿À·ù");
 				}
 			}
 			return result;
 		}
-		//ì¢Œì„ dbì— ì¶”ê°€
-		public void Sit(String Sit) {
-			String sql = "INSERT INTO MOVIE_INFO VALUES(?)";
-			try {
-				pstm = conn.prepareStatement(sql);
-				pstm.setString(1, Sit);
-				pstm.executeUpdate();
-			} catch (SQLException e) {
-				System.out.println("ìë¦¬ ì„ íƒ ì˜¤ë¥˜");
-				System.out.println(e);
-			} finally {
-				try {
-					pstm.close();
-				} catch (SQLException e) {
-					System.out.println("ì•Œ ìˆ˜ ì—†ëŠ” ì˜¤ë¥˜");
-				}
-
-			}
-		}
+//		//ÁÂ¼® db¿¡ Ãß°¡
+//		public void Sit(String Sit) {
+//			String sql = "INSERT INTO MOVIE_INFO VALUES(?)";
+//			try {
+//				pstm = conn.prepareStatement(sql);
+//				pstm.setString(1, Sit);
+//				pstm.executeUpdate();
+//			} catch (SQLException e) {
+//				System.out.println("ÀÚ¸® ¼±ÅÃ ¿À·ù");
+//				System.out.println(e);
+//			} finally {
+//				try {
+//					pstm.close();
+//				} catch (SQLException e) {
+//					System.out.println("¾Ë ¼ö ¾ø´Â ¿À·ù");
+//				}
+//
+//			}
+//		}
 
 
 }
+
+

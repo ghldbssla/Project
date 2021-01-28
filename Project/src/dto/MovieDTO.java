@@ -13,7 +13,21 @@ public class MovieDTO {
 	private int movieprice;
 	private int ticketamount;
 	private String userid;
+	private String theaterlo;
 	
+	public String getTheaterlo() {
+		return theaterlo;
+	}
+
+	public MovieDTO(String theaterlo) {
+		super();
+		this.theaterlo = theaterlo;
+	}
+
+	public void setTheaterlo(String theaterlo) {
+		this.theaterlo = theaterlo;
+	}
+
 	/*
 	public void setProdprice(int prodprice) {
 		this.prodprice = prodprice;
@@ -21,8 +35,12 @@ public class MovieDTO {
 	*/
 	public MovieDTO() {;}
 	
-	public MovieDTO(String moviename, String director, String actor, String release, int rate, String theater,
-			String theatertime, String movieinfo, int movieprice, int ticketamount, String userid, String first_run) {
+	
+	public MovieDTO(String movienum, String moviename, String director, String actor, String first_run, int rate,
+			String theater, String theatertime, String movieinfo, int movieprice, int ticketamount, String userid,
+			String theaterlo) {
+		super();
+		this.movienum = movienum;
 		this.moviename = moviename;
 		this.director = director;
 		this.actor = actor;
@@ -34,8 +52,8 @@ public class MovieDTO {
 		this.movieprice = movieprice;
 		this.ticketamount = ticketamount;
 		this.userid = userid;
+		this.theaterlo = theaterlo;
 	}
-
 
 	public String getMovienum() {
 		return movienum;
@@ -48,9 +66,6 @@ public class MovieDTO {
 	}
 	public String getActor() {
 		return actor;
-	}
-	public String getFirst_run() {
-		return first_run;
 	}
 	public int getRate() {
 		return rate;

@@ -7,28 +7,26 @@ public class Index {
 		new CrawLing();
 		Scanner sc = new Scanner(System.in);
 		while (true) {
-			System.out.println("1. íšŒì›ê°€ì…\n2. ë¡œê·¸ì¸\n3. ì˜í™” \n4. ë‚˜ê°€ê¸°");
+			System.out.println("1. È¸¿ø°¡ÀÔ\n2. ·Î±×ÀÎ\n3. ¿µÈ­ \n4. ³ª°¡±â");
 			int choice = sc.nextInt();
-			// ì»¨íŠ¸ë¡¤ëŸ¬
+			// ÄÁÆ®·Ñ·¯
 			if (choice == 4) {
-				System.out.println("ì´ìš©í•´ì£¼ì…”ì„œ ê°ì‚¬í•©ë‹ˆë‹¤.\nì•ˆë…•íˆ ê°€ì„¸ìš”.");
+				System.out.println("ÀÌ¿ëÇØÁÖ¼Å¼­ °¨»çÇÕ´Ï´Ù.\n¾È³çÈ÷ °¡¼¼¿ä.");
 				break;
 			}
 			switch (choice) {
 			case 1:
-				// íšŒì›ê°€ì…
+				// È¸¿ø°¡ÀÔ
 				new JoinView();
 				break;
 			case 2:
-				// ë¡œê·¸ì¸
+				// ·Î±×ÀÎ
 				new LoginView();
 				break;
 			case 3:
-				// ì˜í™”
+				// ¿µÈ­
 				new MovieView();
 				break;
-			default:
-				System.out.println("ë‹¤ì‹œ ì…ë ¥í•´ ì£¼ì„¸ìš”.\n");
 			}
 		}
 	}
