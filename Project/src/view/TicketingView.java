@@ -19,7 +19,7 @@ public class TicketingView {
 				new PayView();
 				break;
 			case 2:
-				// 취소하기
+				// 결제된 티켓 취소하기
 				new CancleView();
 				break;
 			case 3:

@@ -31,9 +31,7 @@ public class TicketView {
 				new MovieChoiceView();
 				break;
 
-
 			}
-
 
 		}
 

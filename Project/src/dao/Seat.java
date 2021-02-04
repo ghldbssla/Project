@@ -16,17 +16,59 @@ public class Seat {
 	}
 
 	// 좌석 만들기
-	public String[][] make_sit() {
-		String[][] seat = new String[9][9];
-		String[] col = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
-		String[] raw = { "A", "B", "C", "D", "E", "F", "G", "H", "I" };
-		for (int i = 0; i < raw.length; i++) {
-			for (int j = 0; j < col.length; j++) {
-				seat[i][j] = raw[i] + col[j];
-			}
-		}
-		return seat;
-	}
+	 // 좌석 선택
+	   public String make_seat1(String T_NAME,String M_NAME) {
+	      //전체
+	      String sql="SELECT T_NAME, M_NAME FROM SCREEN_THEATER";
+	      //나와있는
+	      sql = "SELECT * FROM SCREEN_THEATER WHERE T_NAME=? AND M_NAME=?";
+	      try {
+	         pstm = conn.prepareStatement(sql);
+	         pstm.setString(1, T_NAME);
+	         pstm.setString(2, M_NAME);
+	         String result="";
+	         rs = pstm.executeQuery();
+	         while (rs.next()) {
+	            result += "영화관 이름 : \""+rs.getString(1) + "\"\n\t-영화 이름 : " + rs.getString(2) 
+	            + "\"\n\n";;
+	         }
+	      } catch (SQLException e) {
+	         System.out.println("make_seat() 선택 오류");
+	         System.out.println(e);
+	      } finally {
+	         try {
+	            rs.close();
+	            pstm.close();
+	         } catch (SQLException e) {
+	            System.out.println("알 수 없는 오류");
+	         }
+	      }
+	      return sql;
+	   }
+	      
+	   
+	   public void make_seat2(String S_SEAT_CNT){
+	      String sql = "INSERT INTO SCREEN_THEATER(S_SEAT_CNT)VALUES=?";
+	      try {
+	         pstm = conn.prepareStatement(sql);
+	         pstm.setString(1, S_SEAT_CNT);
+	         String result="";
+	         rs = pstm.executeQuery();
+	         while (rs.next()) {
+	            result += "좌석 선택 : \""+rs.getString(1)+ "\"\n\n";;
+	         }
+	      } catch (SQLException e) {
+	         System.out.println("좌석 선택 오류");
+	         System.out.println(e);
+	      } finally {
+	         try {
+	            rs.close();
+	            pstm.close();
+	         } catch (SQLException e) {
+	            System.out.println("알 수 없는 오류");
+	         }
+	      }
+	   }
 
 	// 영화 선택 후 시간과 좌석
 	// SQL SIT(좌석)테이블 만들기

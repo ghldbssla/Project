@@ -3,28 +3,29 @@ package view;
 import java.util.Scanner;
 
 public class Index {
-	public static void main(String[] args) {
-		new CrawLing();
-		Scanner sc = new Scanner(System.in);
-		while (true) {
-			System.out.println("1. 회원가입\n2. 로그인\n3. 영화 \n4. 나가기");
-			int choice = sc.nextInt();
-			// 컨트롤러
-			if (choice == 4) {
-				System.out.println("이용해주셔서 감사합니다.\n안녕히 가세요.");
+	public Index() {
+		String start="";
+		new CrawLing(start);
+		Scanner sc= new Scanner(System.in);
+		
+		while(true) {
+			System.out.println("1. 회원가입\n2. 로그인\n3. 영화\n4. 종료");
+			int choice=sc.nextInt();
+			
+			//컨트롤러
+			if(choice==4) {
 				break;
 			}
-			switch (choice) {
+			switch(choice) {
 			case 1:
-				// 회원가입
+				//회원가입
 				new JoinView();
 				break;
 			case 2:
-				// 로그인
-				new LoginView();
+				//로그인
+				new LoginView(0);
 				break;
 			case 3:
-				// 영화
 				new MovieView();
 				break;
 			}

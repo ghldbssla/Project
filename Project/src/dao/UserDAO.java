@@ -4,7 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Scanner;
 
 import dao.Session;
 import dto.UserDTO;
@@ -14,6 +16,9 @@ public class UserDAO {
 	Connection conn = null;
 	PreparedStatement pstm = null;
 	ResultSet rs = null;
+	String checkpassView = "사용가능한 비밀번호입니다.";
+	String checkemailView = "사용가능한 이메일 입니다.";
+	Scanner sc = new Scanner(System.in);
 	
 	private static int KEY = 4;
 	
@@ -219,22 +224,16 @@ public class UserDAO {
 		return user;
 	}
 	
-	public HashMap<String, String> logincheck(String userid, String userpw) {
-		HashMap<String, String> login_data = new HashMap<>();
-		//아이디와 비밀번호 둘중 하나만 맞아도 회원 정보가지고 오기
-		String sql = "SELECT * FROM MOVIE_USER WHERE USERID=? OR USERPW=?";
+	public String logincheck(String userid) {
+		String sql = "SELECT USERID FROM MOVIE_USER WHERE USERID=?";
+		String existid="";
 		try {
 			pstm = conn.prepareStatement(sql);
 			pstm.setString(1, userid);
-			pstm.setString(2, encrypt(userpw));
 			rs = pstm.executeQuery();
 			if(rs.next()) {
-				//올바른 회원정보와 비밀번호를 객체에 저장
-				userid=rs.getString(1);
-				userpw=rs.getString(2);
-			}
-			//올바른 정보가 담긴 객체를 hashmap에 저장
-			login_data.put(userid, userpw);
+				existid = rs.getString(1);
+			}			
 		} catch (SQLException e) {
 			System.out.println(e);
 		} finally {
@@ -244,61 +243,9 @@ public class UserDAO {
 			} catch (SQLException e) {
 				System.out.println("알 수 없는 오류");
 			}
-		} return login_data;
+		} return existid;
 	}
 	
-//	public void idfail(String userid, String userpw) {
-////		boolean check = false;
-//		String sql = "SELECT USERID FROM MOVIE_USER WHERE USERPW=?";
-//		UserDTO user = null;
-//		try {
-//			pstm = conn.prepareStatement(sql);
-//			pstm.setString(1, userid);
-//			pstm.setString(2, encrypt(userpw));
-//			rs = pstm.executeQuery();
-//			if(rs.next()) {
-//				System.out.println(rs);
-////				check=true;
-//			}
-//		} catch (SQLException e) {
-//			System.out.println(e);
-//		} finally {
-//			try {
-//				rs.close();
-//				pstm.close();
-//			} catch (SQLException e) {
-//				System.out.println("알 수 없는 오류");
-//			}
-//		}
-////		return check;
-//	}
-//	
-//	public boolean pwfail(String userid, String userpw) {	
-//		boolean check=false;
-//		String sql = "SELECT USERPW FROM MOVIE_USER WHERE USERID=?";
-//		UserDTO user = null;
-//		try {
-//			pstm = conn.prepareStatement(sql);
-//			pstm.setString(1, userid);
-//			pstm.setString(2, encrypt(userpw));
-//			rs = pstm.executeQuery();
-//			if(rs.next()) {
-//				check=true;
-//			}
-//		} catch (SQLException e) {
-//			System.out.println(e);
-//		} finally {
-//			try {
-//				rs.close();
-//				pstm.close();
-//			} catch (SQLException e) {
-//				System.out.println("알 수 없는 오류");
-//			}
-//		}
-//		return check;
-//	}
-	
-		
 	public void find_id(int idx, String userinfo) {
 		String userid = "";
 		String[] columns = { "USEREMAIL", "USERPHONE" };
@@ -363,4 +310,151 @@ public class UserDAO {
 			}
 		}
 	}
+	
+	//수정
+	public void modify(int idx, String newData) {
+		String[] columns = { "USERPW","USEREMAIL","USERPHONE","USERADDR"};
+		String sql = "UPDATE MOVIE_USER SET " + columns[idx] + " = ? WHERE USERID=?";
+		if(idx==0) {
+			String checkpass = checkPass(newData);
+			System.out.println(checkpass);
+			if (checkpass.equals(checkpassView)) {
+				modifyDbms(sql, newData);
+			}
+		}else if(idx==1) {
+			String checkemail = checkEmail(newData);
+			System.out.println(checkemail);
+			if (checkemail.equals(checkemailView)) {
+				modifyDbms(sql, newData);
+			}
+		}else {
+			modifyDbms(sql, newData);
+		}
+	}
+	public void modifyDbms(String sql,String newData) {
+		try {
+			pstm = conn.prepareStatement(sql);
+			pstm.setString(1, newData);
+			pstm.setString(2, Session.get("session_id"));
+			pstm.executeUpdate();
+			
+		} catch (SQLException e) {
+			System.out.println(e);
+		} finally {
+			try {
+				pstm.close();
+			} catch (SQLException e) {
+				System.out.println("알 수 없는 오류");
+			}
+		}
+	}
+	//회원탈퇴
+	public boolean leaveId(String userpw) {
+		//탈퇴를 위해 재입력한 비밀번호가 로그인된 유저의 비밀번호와 같은지 비교하기 위해서
+		//먼저 USER 테이블에서 세션의 비밀번호를 검색해 와야 한다.
+		String sql = "SELECT USERPW FROM MOVIE_USER WHERE USERID=?";
+		String en_pw = "";
+		int result = 0;
+		try {
+			pstm = conn.prepareStatement(sql);
+			pstm.setString(1, Session.get("session_id"));
+			rs = pstm.executeQuery();
+			if (rs.next()) {
+				en_pw = rs.getString(1);
+			}
+		} catch (SQLException e) {
+			System.out.println(e);
+		} finally {
+			try {
+				rs.close();
+				pstm.close();
+			} catch (SQLException e) {
+				System.out.println("알 수 없는 오류");
+			}
+		}
+		//en_pw에 검색이 되었다면 암호화된 비밀번호가 담겨있으므로, 밖에서 받아온 userpw와
+		//그 암호화된 비밀번호를 복호화 시켜서 비교해준다.
+		if (userpw.equals(decrypt(en_pw))) {
+			sql = "DELETE FROM MOVIE_USER WHERE USERID=?";
+			try {
+				pstm = conn.prepareStatement(sql);
+				pstm.setString(1, Session.get("session_id"));
+				result = pstm.executeUpdate();
+			} catch (SQLException e) {
+				System.out.println(e);
+			} finally {
+				try {
+					pstm.close();
+				} catch (SQLException e) {
+					System.out.println("알 수 없는 오류");
+				}
+			}
+		}
+		return result==1;
+	}
+	//비밀번호 재설정 창으로 이동
+	public void moveTopw(String userid) {
+		if(checkid(userid)) {
+			String newuserpw="";
+			while(true) {
+				//비밀번호 사용가능한지 체크
+				String checkpassView = "사용가능한 비밀번호입니다.";
+				System.out.print("재설정할 비밀번호를 입력하세요 : ");	
+				newuserpw=sc.next();
+				String checkpass = checkPass(newuserpw);
+				System.out.println(checkpass);
+				if (checkpass.equals(checkpassView)) {
+					break;
+				}
+			}
+			updatepw(userid, newuserpw);
+		}
+		else {
+			System.out.println("존재하지 않는 아이디입니다.");
+		}
+	}
+	
+	//충전하기
+	public int charge(int addMoney,String userId) {
+		String sql = "SELECT USERMONEY FROM MOVIE_USER WHERE USERID=?";
+		String sqlTwo = "UPDATE MOVIE_USER SET USERMONEY = ? WHERE USERID=?";
+		int money = 0;
+		int sum = 0;
+		if (addMoney<0) {
+			return -1;
+		}else if(addMoney==0){
+			return 0;
+		}else if(addMoney>0) {
+			try {
+				pstm = conn.prepareStatement(sql);
+				pstm.setString(1, userId);
+				rs = pstm.executeQuery();
+				if (rs.next()) {
+					//rs.getInt(1) : 1번째 컬럼의 정수값 가져오기
+					money = rs.getInt(1);
+				}
+				sum = money + addMoney;
+				pstm = conn.prepareStatement(sqlTwo);
+				pstm.setInt(1, sum);
+				pstm.setString(2, userId);
+				rs = pstm.executeQuery();
+				
+				
+			} catch (SQLException e) {
+				System.out.println(e);
+			} finally {
+				try {
+					pstm.close();
+				} catch (SQLException e) {
+					System.out.println("알 수 없는 오류");
+				}
+			}
+			return sum;
+		}else {
+			return -2;
+		}
+
+	}
+	
+	
 }

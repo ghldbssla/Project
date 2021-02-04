@@ -25,9 +25,11 @@ public class CancleView {
 				System.out.println("취소하실 영화 제목을 입력해 주세요.");
 				sc.nextLine();
 				String title = sc.nextLine();
-				System.out.println("정말 취소 하시겠습니까? (Y/N)");
-				if (sc.next().equals("y") || sc.next().equals("Y")) {
-					mdao.delete_c(title);
+				if (!title.equals("")) {
+					System.out.println("정말 취소 하시겠습니까? (Y/N)");
+					if (sc.next().equals("y") || sc.next().equals("Y")) {
+						mdao.delete_c(title);
+					}
 				}
 				break;
 			case 3:
