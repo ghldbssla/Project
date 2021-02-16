@@ -11,7 +11,6 @@ public class UserDTO {
 	private String userphone;
 	private String useraddr;
 	private String userbday;
-	private int usercoupon;
 	private int usermoney;
 	
 	//alt shift s > r : getter, setter ¸¸µé±â
@@ -70,13 +69,6 @@ public class UserDTO {
 	public void setUserbday(String userbday) {
 		this.userbday = userbday;
 	}
-	public int getUsercoupon() {
-		return usercoupon;
-	}
-
-	public void setUsercoupon(int usercoupon) {
-		this.usercoupon = usercoupon;
-	}
 
 	public int getUsermoney() {
 		return usermoney;
@@ -96,11 +88,10 @@ public class UserDTO {
 		this.userphone = datas[4];
 		this.useraddr = datas[5];
 		this.userbday = datas[6];
-		this.usercoupon=Integer.parseInt(datas[7]);
-		this.usermoney=Integer.parseInt(datas[8]);
+		this.usermoney=Integer.parseInt(datas[7]);
 	}
 	public UserDTO(String userid, String userpw, String username, String useremail, String userphone, String useraddr,
-			String userbday, int usercoupon, int usermoney) {
+			String userbday, int usermoney) {
 		this.userid = userid;
 		this.userpw = userpw;
 		this.username = username;
@@ -108,7 +99,6 @@ public class UserDTO {
 		this.userphone = userphone;
 		this.useraddr = useraddr;
 		this.userbday = userbday;
-		this.usercoupon = usercoupon;
 		this.usermoney = usermoney;
 	}
 
@@ -120,7 +110,6 @@ public class UserDTO {
 		this.userphone = userphone;
 		this.useraddr = useraddr;
 		this.userbday = userbday;
-		this.usercoupon=0;
 		this.usermoney=0;
 	}
 	
@@ -138,7 +127,7 @@ public class UserDTO {
 	@Override
 	public String toString() {
 		return userid+"\t"+userpw+"\t"+username+"\t"+useremail+"\t"+userphone+"\t"
-				+useraddr+"\t"+userbday+"\t"+usercoupon+"\t"+usermoney;
+				+useraddr+"\t"+userbday+"\t"+usermoney;
 	}
 	
 }

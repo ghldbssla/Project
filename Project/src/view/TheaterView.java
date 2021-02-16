@@ -1,5 +1,6 @@
 package view;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Scanner;
 
 import dao.MovieDAO;
@@ -15,14 +16,19 @@ public class TheaterView {
 		CrawLing crawl = new CrawLing();
 
 		while (true) {
-			System.out.print("극장위치를 입력해주세요.\nex)경기\t서울\t인천\t강원\t대전/충청\t대구\t부산/울산\t경상\t광주/전라/제주\n");
-			String Theaterlo = sc.next();
-			mdao.findlo(Theaterlo);
-			System.out.print("극장을 입력해주세요.\n");
+			System.out.println("\n지역을 선택해주세요.");
+			System.out.println("서울\t경기\t인천\t강원\t대전/충청\t대구\t부산/울산\t경상\t광주/전라/제주");
+			System.out.print("지역 : ");
+			String city_view = sc.next();
+			
+			//상영관 선택
+			System.out.println("\n"+city_view+"내에 있는 상영관을 선택해주세요.");
+			System.out.println(mdao.choiceTheater(city_view));
+			System.out.print("상영관 : ");
 			String cgvCode = sc.next();
 			// 맞는지 확인하는 dao필요
 			// 해당 cgv의 당일 상영시간표 보여주기
-			crawl.find(cgvCode, Theaterlo);
+			crawl.find(cgvCode, city_view);
 
 			// 영화제목, 시간 입력 받기
 			System.out.print("원하시는 영화제목을 입력해주세요.\n");
@@ -53,14 +59,13 @@ public class TheaterView {
 				}
 				System.out.println("=====================================");
 				// A8
-				System.out.print("원하시는 좌석을 입력해주세요\n");
-				String sit = sc.next();
-
-				
-				// 테이블에 예매 정보 insert -> mdao
-				mdao.sit_insert(cgvCode,m_name,m_time,sit);
-				// 티케팅뷰에서 delete
-
+				int ticketNum =0;
+				System.out.print("원하시는 좌석"+ticketNum+"개를 입력해주세요\n");
+				for (int i = 1; i <= ticketNum; i++) {
+					System.out.print("좌석선택 : ");
+					String sit = sc.next();
+					mdao.sit_insert(m_time,ticketNum,m_name,cgvCode,sit);
+				}
 				// 티케팅뷰()
 				new TicketingView();
 				}else {

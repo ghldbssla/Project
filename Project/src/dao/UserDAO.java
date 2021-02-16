@@ -116,7 +116,7 @@ public class UserDAO {
 		return checkList;
 	}
 	public void join(UserDTO newUser) {
-		String sql = "INSERT INTO MOVIE_USER VALUES(?,?,?,?,?,?,?,?,?)";
+		String sql = "INSERT INTO MOVIE_USER VALUES(?,?,?,?,?,?,?,?)";
 		String en_pw = encrypt(newUser.getUserpw());
 		newUser.setUserpw(en_pw);
 		try {
@@ -128,8 +128,7 @@ public class UserDAO {
 			pstm.setString(5, newUser.getUserphone());
 			pstm.setString(6, newUser.getUseraddr());
 			pstm.setString(7, newUser.getUserbday());
-			pstm.setInt(8, newUser.getUsercoupon());
-			pstm.setInt(9, newUser.getUsermoney());
+			pstm.setInt(8, newUser.getUsermoney());
 			pstm.executeUpdate();
 		} catch (SQLException e) {
 			System.out.println(e);
@@ -209,7 +208,7 @@ public class UserDAO {
 			if (rs.next()) {
 				user = new UserDTO(rs.getString(1), rs.getString(2), rs.getString(3), 
 						rs.getString(4), rs.getString(5), rs.getString(6),
-						rs.getString(7), rs.getInt(8), rs.getInt(9));
+						rs.getString(7), rs.getInt(8));
 			}
 		} catch (SQLException e) {
 			System.out.println(e);
@@ -453,8 +452,69 @@ public class UserDAO {
 		}else {
 			return -2;
 		}
-
+	}
+//--------------------------------------Pay View 메소드------------------------------------------	
+	public String findAge(String userid) {
+		String result="";
+		String sql = "SELECT userbday FROM MOVIE_USER WHERE USERID=?";
+		try {
+			pstm = conn.prepareStatement(sql);
+			pstm.setString(1, userid);
+			rs = pstm.executeQuery();
+			if(rs.next()) {
+				result = rs.getString(1);
+			}	
+		} catch (SQLException e) {
+			System.out.println(e);
+		} finally {
+			try {
+				pstm.close();
+			} catch (SQLException e) {
+				System.out.println("알 수 없는 오류");
+			}
+		}
+		return result;	//19990101 
 	}
 	
+	public int bringMoney(String userid) {
+		int result=0;
+		String sql = "SELECT usermoney FROM MOVIE_USER WHERE USERID=?";
+		try {
+			pstm = conn.prepareStatement(sql);
+			pstm.setString(1, userid);
+			rs = pstm.executeQuery();
+			if(rs.next()) {
+				result = rs.getInt(1);
+			}	
+		} catch (SQLException e) {
+			System.out.println(e);
+		} finally {
+			try {
+				pstm.close();
+			} catch (SQLException e) {
+				System.out.println("알 수 없는 오류");
+			}
+		}
+		return result;
+	}
+	
+	public void updateMoney(String userid, int change) {
+		String sql = "UPDATE MOVIE_USER SET USERMONEY=? WHERE USERID=?";
+		try {
+			pstm = conn.prepareStatement(sql);
+			pstm.setInt(1, change);
+			pstm.setString(2, userid);
+			pstm.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println(e);
+		} finally {
+			try {
+				pstm.close();
+			} catch (SQLException e) {
+				System.out.println("알 수 없는 오류");
+			}
+		}
+	}
+//------------------------------------------------------------------------------------------------	
 	
 }

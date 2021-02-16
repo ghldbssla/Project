@@ -16,7 +16,8 @@ public class MainView {
 			new MovieView();
 			break;
 		case 3:
-			
+			//랜덤하게 들어왔을때 
+			new RandomCoupon();
 			break;
 		case 4:
 			new LoginView(0);

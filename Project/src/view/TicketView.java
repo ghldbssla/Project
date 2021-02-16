@@ -12,12 +12,11 @@ public class TicketView {
 
 		while(true) {
 
-			System.out.println("1. 상영관 선택\n2. 영화 선택\n3. 나가기");
+			System.out.println("1. 상영관 선택\n2. 영화 선택\n3. 무비뷰로 가기");
 			int choice = sc.nextInt();
 
 			if(choice==3) {
-				System.out.println("이전 화면으로 되돌아갑니다.");
-				break;
+				new MovieView();
 			}
 
 			switch (choice) {

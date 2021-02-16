@@ -15,14 +15,16 @@ public class WatchListView {
 			int choice = sc.nextInt();
 			
 			if (choice==1) {
-				if(Session.get("session_id")==null) {
+				String id =Session.get("session_id");
+				if(id==null) {
 					new LoginView(-1);
 				}else {
 					System.out.println("찜하기에 추가할 영화제목을 입력해주세요.");
 					sc.nextLine();
 					String title = sc.nextLine();
-					mdao.create(title);	
+					mdao.create(id,title);	
 					//**찜하기 완료! 뜬 후에 다른 페이지 어디로 갈꺼야?
+					new UserInfoView();
 				}
 				break;
 			}else if (choice==2) {

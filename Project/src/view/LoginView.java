@@ -54,11 +54,12 @@ public class LoginView {
 				new MainView();
 			}
 			else if(page==-1) {
+				String id =Session.get("session_id");
 				//WatchListView()에서 비로그인상태로 찜하기 선택하면 로그인 성공후 찜할수 있게 하는것
 				System.out.println("찜하기에 추가할 영화제목을 입력해주세요.");
 				sc.nextLine();
 				String title = sc.nextLine();
-				mdao.create(title);	
+				mdao.create(id,title);	
 				//**찜하기 완료! 뜬 후에 다른 페이지로 연결해줘야하나?
 			}
 		}

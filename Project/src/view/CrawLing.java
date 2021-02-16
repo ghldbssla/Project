@@ -100,98 +100,105 @@ public class CrawLing {
 			directorAr.add(gen_dir_act[i][1]);
 			actorAr.add(gen_dir_act[i][2]);
 		}
-
+		int cnt_m=0;
 		for (int i = 0; i < actorAr.size(); i++) {
+			//"해피 투게더" 라는 영화가 2개여서 2번째 "해피 투게더"를 생략
+			if(titleAr.get(i).equals("해피 투게더")) {
+				if(cnt_m==1) {
+					continue;
+				}
+				cnt_m++;
+			}
 			mdao.input(titleAr.get(i), ratesAr.get(i), genreAr.get(i), directorAr.get(i), actorAr.get(i));
 		}
 		System.out.println("현재 상영작 업데이트 완료!");
 		// --------------------------------------------------------------------------
-		// url에서 상영예정작 클릭, 정보 가져오기
-		WebElement searchInput = driver.findElement(By.xpath("//*[@id=\"navi_movie\"]/li[2]/a/em"));
-		searchInput.click();
-
-		WebElement productList_s = driver.findElement(By.className("obj_section"));
-
-		try {
-			Thread.sleep(2000);
-		} catch (InterruptedException e) {
-			
-		}
-
-		List<WebElement> listTitle_s = productList_s.findElements(By.className("tit"));
-		List<WebElement> listFull_s = productList_s.findElements(By.className("link_txt"));
-
-		ArrayList<String> titleAr_s = new ArrayList<>();
-		ArrayList<String> genreAr_s = new ArrayList<>();
-		ArrayList<String> directorAr_s = new ArrayList<>();
-		ArrayList<String> actorAr_s = new ArrayList<>();
-
-		// full_s은 데이터가 장르, 감독, 배우로 나오기 때문에 정보가 100개 넘게 가져오면 에러가 남
-		// 따라서 34개의 영화만 가져오도록 구현
-		for (WebElement element : listTitle_s) {
-			String title_s = element.findElement(By.tagName("a")).getText();
-			titleAr_s.add(title_s);
-			cnt_s++;
-			if (cnt_s == 34) {
-				cnt_s = 0;
-				break;
-			}
-		}
-		int cnt = 0;
-		try {
-			Thread.sleep(2000);
-		} catch (InterruptedException e) {
-			;
-		}
-		String full_s = "";
-		ArrayList<String> arFull_s = new ArrayList<>();
-		for (WebElement element : listFull_s) {
-			String f_u_l_l_s = element.findElement(By.tagName("a")).getText();
-			cnt_s++;
-			if (cnt_s == 100) {
-				cnt_s = 0;
-				break;
-			}
-			if (cnt <= 3) {
-				cnt++;
-
-				full_s += f_u_l_l_s + ";";
-				if (f_u_l_l_s.equals("스브야토슬라브 포드가에브스키") || f_u_l_l_s.equals("타무라 코타로")) {
-					cnt++;
-					full_s += "없음;";
-				}
-			}
-			if (cnt == 3) {
-				arFull_s.add(full_s);
-				cnt = 0;
-				full_s = "";
-			}
-
-		}
-		String[][] gen_dir_act_s = new String[50][3];
-		for (int i = 0; i < arFull_s.size(); i++) {
-
-			gen_dir_act_s[i] = arFull_s.get(i).split(";");
-		}
-		for (int i = 0; i < gen_dir_act_s.length; i++) {
-			if (gen_dir_act_s[i][0] == null || gen_dir_act_s[i][1] == null || gen_dir_act_s[i][2] == null) {
-				break;
-			}
-			genreAr_s.add(gen_dir_act_s[i][0]);
-			directorAr_s.add(gen_dir_act_s[i][1]);
-			actorAr_s.add(gen_dir_act_s[i][2]);
-		}
-
-		for (int i = 0; i < genreAr_s.size(); i++) {
-			mdao.input_s(titleAr_s.get(i), genreAr_s.get(i), directorAr_s.get(i), actorAr_s.get(i));
-		}
-
-		System.out.println("영화 목록 업데이트 완료!");
+//		// url에서 상영예정작 클릭, 정보 가져오기
+//		WebElement searchInput = driver.findElement(By.xpath("//*[@id=\"navi_movie\"]/li[2]/a/em"));
+//		searchInput.click();
+//
+//		WebElement productList_s = driver.findElement(By.className("obj_section"));
+//
+//		try {
+//			Thread.sleep(2000);
+//		} catch (InterruptedException e) {
+//			
+//		}
+//
+//		List<WebElement> listTitle_s = productList_s.findElements(By.className("tit"));
+//		List<WebElement> listFull_s = productList_s.findElements(By.className("link_txt"));
+//
+//		ArrayList<String> titleAr_s = new ArrayList<>();
+//		ArrayList<String> genreAr_s = new ArrayList<>();
+//		ArrayList<String> directorAr_s = new ArrayList<>();
+//		ArrayList<String> actorAr_s = new ArrayList<>();
+//
+//		// full_s은 데이터가 장르, 감독, 배우로 나오기 때문에 정보가 100개 넘게 가져오면 에러가 남
+//		// 따라서 34개의 영화만 가져오도록 구현
+//		for (WebElement element : listTitle_s) {
+//			String title_s = element.findElement(By.tagName("a")).getText();
+//			titleAr_s.add(title_s);
+//			cnt_s++;
+//			if (cnt_s == 34) {
+//				cnt_s = 0;
+//				break;
+//			}
+//		}
+//		int cnt = 0;
+//		try {
+//			Thread.sleep(2000);
+//		} catch (InterruptedException e) {
+//			;
+//		}
+//		String full_s = "";
+//		ArrayList<String> arFull_s = new ArrayList<>();
+//		for (WebElement element : listFull_s) {
+//			String f_u_l_l_s = element.findElement(By.tagName("a")).getText();
+//			cnt_s++;
+//			if (cnt_s == 100) {
+//				cnt_s = 0;
+//				break;
+//			}
+//			if (cnt <= 3) {
+//				cnt++;
+//
+//				full_s += f_u_l_l_s + ";";
+//				if (f_u_l_l_s.equals("스브야토슬라브 포드가에브스키") || f_u_l_l_s.equals("타무라 코타로")) {
+//					cnt++;
+//					full_s += "없음;";
+//				}
+//			}
+//			if (cnt == 3) {
+//				arFull_s.add(full_s);
+//				cnt = 0;
+//				full_s = "";
+//			}
+//
+//		}
+//		String[][] gen_dir_act_s = new String[50][3];
+//		for (int i = 0; i < arFull_s.size(); i++) {
+//
+//			gen_dir_act_s[i] = arFull_s.get(i).split(";");
+//		}
+//		for (int i = 0; i < gen_dir_act_s.length; i++) {
+//			if (gen_dir_act_s[i][0] == null || gen_dir_act_s[i][1] == null || gen_dir_act_s[i][2] == null) {
+//				break;
+//			}
+//			genreAr_s.add(gen_dir_act_s[i][0]);
+//			directorAr_s.add(gen_dir_act_s[i][1]);
+//			actorAr_s.add(gen_dir_act_s[i][2]);
+//		}
+//
+//		for (int i = 0; i < genreAr_s.size(); i++) {
+//			mdao.input_s(titleAr_s.get(i), genreAr_s.get(i), directorAr_s.get(i), actorAr_s.get(i));
+//		}
+//
+//		System.out.println("영화 목록 업데이트 완료!");
 		// -----------------------------------------------------
 		// 사이트번호마다 보여지는 영화관 장소가 다름
 		String[] areaNum = { "01", "02", "202", "12", "03", "11", "05", "204", "206" };
 		String[] areaName = { "서울", "경기", "인천", "강원", "대전/충청", "대구", "부산/울산", "경상", "광주/전라/제주" };
-		cnt = 0;
+		int cnt = 0;
 		int num = 0;
 		// for문으로 지역마다 크롤링해줌
 		for (int i = 0; i < areaNum.length; i++) {
@@ -310,18 +317,32 @@ public class CrawLing {
 				title.add(element.getText());
 			}
 		}
+		int timeCnt = 0;
 		int cnt = -1;
-		ArrayList<String> title_find = new ArrayList<>();
-		ArrayList<String> time_find = new ArrayList<>();
 		for (WebElement element : listTime) {
 			String time = element.getText();
 			if (!time.contains("상영중")) {
 				if (time.equals("") || time == null) {
 					cnt++;
 				} else{
-					System.out.println(title.get(cnt));
-					System.out.println(time+"\n");
-					mdao.name_time(cgvCode,title.get(cnt),time);
+					if(timeCnt==0) {
+						//오류가 남 
+						System.out.println(cgvCode);
+						System.out.println(title.get(cnt));
+						System.out.println(time+"\n");
+						
+						mdao.name_time(cgvCode,title.get(cnt),time);
+						timeCnt++;
+					}else {
+						
+						//오류가 남 
+						System.out.println(cgvCode);
+						System.out.println(title.get(cnt));
+						System.out.println(time+"\n");
+						
+						mdao.name_time(cgvCode,title.get(cnt),time);
+						
+					}
 					//title_find,time_find,serial을 어디에다가 넣어야 할까?
 				}
 			}
@@ -329,6 +350,7 @@ public class CrawLing {
 		driver.close();
 		if (cnt==-1) {
 			System.out.println("찾으시는 결과가 없습니다.\n다시 입력해 주세요.\n");
+			new TheaterView();
 		} else {
 			System.out.println("찾기 완료!");
 		}
@@ -339,82 +361,83 @@ public class CrawLing {
 //====================================================================================================
 //====================================================================================================
 ////====================================================================================================
-//	void find(String cgvCode, String city_view, String m_name) {
-//		String id = "webdriver.chrome.driver";
-//		String path = "C:/chromedriver.exe";
-//		MovieDAO mdao = new MovieDAO();
-//		System.setProperty(id, path);
-//		ChromeOptions options = new ChromeOptions();
-//		String url = "";
-//		options.setCapability("ignoreProtectedModeSettings", true);
-//		options.addArguments("headless");
-//		WebDriver driver = new ChromeDriver(options);
-//		// --------구글을 이미 킨 상태--------------------------------------------
-//		// 네이버로 들어가라
-//		// 셀레니움은 느려서 중간중간에 쉬어 줘야 한다.
-//		int index = -1;
-//		String serial = mdao.count(cgvCode);
-//		int[] areaminus = { 0, 23, 68, 0, 76, 94, 101, 115, 133 };
-//		String[] areaName = { "서울", "경기", "인천", "강원", "대전/충청", "대구", "부산/울산", "경상", "광주/전라/제주" };
-//		for (int i = 0; i < areaName.length; i++) {
-//			if (city_view.equals(areaName[i])) {
-//				index = i;
-//				break;
-//			}
-//		}
-//		if (index == -1) {
-//			System.out.println("맞지 않는 정보입니다.\n다시 입력해주세요.");
-//			new TheaterView();
-//		}
-//		String[] areaNum = { "01", "02", "202", "12", "03", "11", "05", "204", "206" };
-//		url = "http://www.cgv.co.kr/theaters/?areacode=" + areaNum[index];// 사이트 이름을 for문으로 반복해줌
-//		driver.get(url);
-//		try {
-//			Thread.sleep(1000);
-//		} catch (InterruptedException e) {
-//			;
-//		}
-//
-////			Xpath : /html/body/div[2]/div[3]/div[2]/div[1]/div/div[2]/ul/li[?]/div/ul/li[?]/a
-//		WebElement cityname = driver.findElement(By.xpath("/html/body/div[2]/div[3]/div[2]/div[1]/div/div[2]/ul/li["
-//				+ (index + 1) + "]/div/ul/li[" + (Integer.parseInt(serial) - areaminus[index]) + "]/a"));
-//		cityname.click();
-//
-//		driver.switchTo().frame("ifrm_movie_time_table");
-//		WebElement productList = driver.findElement(By.className("sect-showtimes"));
-//
-//		List<WebElement> listTitle = productList.findElements(By.tagName("a"));
-//		List<WebElement> listTime = productList.findElements(By.tagName("em"));
-//		ArrayList<String> title = new ArrayList<>();
-//
-//		for (WebElement element : listTitle) {
-//			if ((!element.getText().contains("석"))&&(m_name.equals(element.getText()))) {
-//				// CGV에 맞는 당일 상영하는 영화 제목
-//				title.add(element.getText());
-//			}
-//		}
-//		int cnt = -1;
-//		ArrayList<String> title_find = new ArrayList<>();
-//		ArrayList<String> time_find = new ArrayList<>();
-//		for (WebElement element : listTime) {
-//			String time = element.getText();
-//			if (!time.contains("상영중")) {
-//				if (time.equals("") || time == null) {
-//					cnt++;
-//				} else if(cnt==0){
-//					System.out.println(title.get(0));
-//					System.out.println(time+"\n");
-//					title_find.add(title.get(0));
-//					time_find.add(time);
-//					//title_find,time_find,serial을 어디에다가 넣어야 할까?
-//				}
-//			}
-//		}
-//		driver.close();
-//		if (cnt==-1) {
-//			System.out.println("찾으시는 결과가 없습니다.\n다시 입력해 주세요.\n");
-//		} else {
-//			System.out.println("찾기 완료!");
-//		}
-//	}
+	void find(String cgvCode, String city_view, String m_name) {
+		String id = "webdriver.chrome.driver";
+		String path = "C:/chromedriver.exe";
+		MovieDAO mdao = new MovieDAO();
+		System.setProperty(id, path);
+		ChromeOptions options = new ChromeOptions();
+		String url = "";
+		options.setCapability("ignoreProtectedModeSettings", true);
+		options.addArguments("headless");
+		WebDriver driver = new ChromeDriver(options);
+		// --------구글을 이미 킨 상태--------------------------------------------
+		// 네이버로 들어가라
+		// 셀레니움은 느려서 중간중간에 쉬어 줘야 한다.
+		int index = -1;
+		String serial = mdao.count(cgvCode);
+		int[] areaminus = { 0, 23, 68, 0, 76, 94, 101, 115, 133 };
+		String[] areaName = { "서울", "경기", "인천", "강원", "대전/충청", "대구", "부산/울산", "경상", "광주/전라/제주" };
+		for (int i = 0; i < areaName.length; i++) {
+			if (city_view.equals(areaName[i])) {
+				index = i;
+				break;
+			}
+		}
+		if (index == -1) {
+			System.out.println("맞지 않는 정보입니다.\n다시 입력해주세요.");
+			new TheaterView();
+		}
+		String[] areaNum = { "01", "02", "202", "12", "03", "11", "05", "204", "206" };
+		url = "http://www.cgv.co.kr/theaters/?areacode=" + areaNum[index];// 사이트 이름을 for문으로 반복해줌
+		driver.get(url);
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			;
+		}
+
+//			Xpath : /html/body/div[2]/div[3]/div[2]/div[1]/div/div[2]/ul/li[?]/div/ul/li[?]/a
+		WebElement cityname = driver.findElement(By.xpath("/html/body/div[2]/div[3]/div[2]/div[1]/div/div[2]/ul/li["
+				+ (index + 1) + "]/div/ul/li[" + (Integer.parseInt(serial) - areaminus[index]) + "]/a"));
+		cityname.click();
+
+		driver.switchTo().frame("ifrm_movie_time_table");
+		WebElement productList = driver.findElement(By.className("sect-showtimes"));
+
+		List<WebElement> listTitle = productList.findElements(By.tagName("a"));
+		List<WebElement> listTime = productList.findElements(By.tagName("em"));
+		ArrayList<String> title = new ArrayList<>();
+
+		for (WebElement element : listTitle) {
+			if ((!element.getText().contains("석"))&&(m_name.equals(element.getText()))) {
+				// CGV에 맞는 당일 상영하는 영화 제목
+				title.add(element.getText());
+			}
+		}
+		int cnt = -1;
+		ArrayList<String> title_find = new ArrayList<>();
+		ArrayList<String> time_find = new ArrayList<>();
+		for (WebElement element : listTime) {
+			String time = element.getText();
+			if (!time.contains("상영중")) {
+				if (time.equals("") || time == null) {
+					cnt++;
+				} else if(cnt==0){
+					System.out.println(title.get(0));
+					System.out.println(time+"\n");
+					title_find.add(title.get(0));
+					time_find.add(time);
+					//title_find,time_find,serial을 어디에다가 넣어야 할까?
+				}
+			}
+		}
+		driver.close();
+		if (cnt==-1) {
+			System.out.println("찾으시는 결과가 없습니다.\n다시 입력해 주세요.\n");
+			new MovieChoiceView();
+		} else {
+			System.out.println("찾기 완료!");
+		}
+	}
 }
